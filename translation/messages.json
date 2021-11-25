@@ -1,5 +1,6 @@
 {
     "ACT-LOGIN-SUCCESS": "account-login-succesfull",
+    "ACT-REGISTER-SUCCESS": "account-register-succesfull",
     "ACT-LOGIN-ERROR": "account-login-error",
     "ACT-EMAIL-REQUIRED": "account-email-required",
     "ACT-EMAIL-EXIST": "act-email-exist",
@@ -9,6 +10,7 @@
     "ACT-CONFIRM-PASSWORD-MATCH": "account-confirm-password-match",
     "ACT-CONFIRM-RECEIVER-MATCH": "account-confirm-receiver-match",
     "ACT-PASSWORD-NOT-STRONG": "account-password-not-strong",
+    "ACT-PASSWORD-TOO-SHORT": "account-password-too-short",
     "ACT-FIRSTNAME-REQUIRED": "account-firstname-required",
     "ACT-LASTNAME-REQUIRED": "account-lastname-required",
     "ACT-CONFIRM_PASSWORD": "account-lastname-required",

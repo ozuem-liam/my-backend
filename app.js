@@ -1,14 +1,16 @@
 require('dotenv').config();
 const express = require('express'),
+  connectDB = require('./database/Database'),
+  expressSession = require('express-session'),
+  accountRoutes = require('./routes/account'),
   cors = require('cors');
+
+connectDB();
 
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
-
-app.get('/', (request, response) => {
-  response.send('WELCOME');
-});
+app.use(expressSession({ secret: 'max', saveUninitialized: false, resave: false }));
 
 const corsOptions = {
   origin: '*',
@@ -18,6 +20,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.get('/', (request, response) => {
+  response.send('WELCOME');
+});
+
+//Route Middleware
+app.use('/account', accountRoutes);
 
 const PORT = process.env.PORT || 5000;
 

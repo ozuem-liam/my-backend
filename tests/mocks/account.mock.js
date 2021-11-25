@@ -9,7 +9,7 @@ const registrationMockRequest = {
     email: faker.internet.email(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
-    confirm_password: password
+    confirm_password: password,
   },
   loginMockRequest = {
     email: faker.internet.email(),
