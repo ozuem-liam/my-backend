@@ -1,4 +1,5 @@
 const accountService = require('../services/accountService'),
+  { validationResult } = require('express-validator'),
   { sendSuccess, sendError } = require('./appController');
 
 const loginUser = async (request, response) => {
@@ -25,6 +26,10 @@ const loginUser = async (request, response) => {
 };
 
 const createAccount = async (request, response) => {
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return sendError({ response, errors });
+  }
   const data = request.body;
   const {
     isSuccess,

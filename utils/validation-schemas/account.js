@@ -15,13 +15,15 @@ const registrationSchema = [
     .withMessage({ 'any.required': messages['ACT-PASSWORD-REQUIRED'] })
     .bail()
     .isLength({ min: 8 })
-    .withMessage({ 'string.pattern.base': messages['ACT-PASSWORD-TOO-SHORT'] }),
-  body('confirm_password')
-    .notEmpty()
-    .withMessage({ 'any.required': messages['ACT-CONFIRM-PASSWORD-REQUIRED'] })
-    .bail()
-    .equals(body('password'))
-    .withMessage({ 'any.only': messages['ACT-CONFIRM-PASSWORD-MATCH'] }),
+    .withMessage({ 'string.pattern.base': messages['ACT-PASSWORD-TOO-SHORT'] })
+    .custom((value,{req, loc, path}) => {
+      if (value !== req.body.confirm_password) {
+          // trow error if passwords do not match
+          throw new Error({ 'any.only': messages['ACT-CONFIRM-PASSWORD-MATCH'] });
+      } else {
+          return value;
+      }
+  })
 ];
 
 module.exports = registrationSchema;
