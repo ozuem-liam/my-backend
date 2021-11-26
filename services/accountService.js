@@ -24,25 +24,45 @@ const loginUser = async ({ email, password }) => {
   return { isSuccess: false, message };
 };
 
-const createAccount = async ({ email, password, first_name, last_name }) => {
+const createAccount = async ({
+  email,
+  password,
+  first_name,
+  last_name,
+  mda,
+  phone_number,
+  organization,
+  region,
+  role,
+  address,
+}) => {
   try {
-    const exist = await Account.exists({ email });
+    exist = await Account.exists({ email });
     if (exist) {
       const message = messages['ACT-EMAIL-EXIST'];
       return { isSuccess: false, message };
-    } else {
-      const hashPassword = await Account.hashPassword(password);
-      const account = await new Account({
-        email,
-        first_name,
-        last_name,
-        password: hashPassword,
-      }).save();
-      const message = messages['ACT-REGISTER-SUCCESS'];
+    }
+    const hashPassword = await Account.hashPassword(password);
+    const account = await new Account({
+      email,
+      first_name,
+      last_name,
+      password: hashPassword,
+      mda,
+      phone_number,
+      organization,
+      region,
+      role,
+      address,
+    }).save();
+    if (account) {
+      await loginUser({ email, password });
+      let destination = 'dashboard',
+        message = messages['ACT-LOGIN-SUCCESS'];
       return {
         isSuccess: true,
         message,
-        destination: 'dashboard',
+        destination,
         account: formatAccountResponse(account),
       };
     }
@@ -52,14 +72,48 @@ const createAccount = async ({ email, password, first_name, last_name }) => {
 };
 
 const formatAccountResponse = (account) => {
-  const { id, email, first_name, last_name } = account;
+  const {
+    id,
+    email,
+    first_name,
+    last_name,
+    phone_number,
+    mda,
+    organization,
+    region,
+    role,
+    address,
+  } = account;
 
   return {
     id,
     email,
     first_name,
     last_name,
+    phone_number,
+    mda,
+    organization,
+    region,
+    role,
+    address,
   };
 };
 
-module.exports = { loginUser, createAccount };
+const changePassword = async ({ email, password, new_password }) => {
+  const account = await Account.findOne({ email });
+  if (account) {
+    if (await account.isAMatchPassword(password)) {
+      account.password = await Account.hashPassword(new_password);
+      account.timestamp = { type: Date, default: Date.now };
+      await account.save();
+      const message = messages['ACT-PASSWORD-RESET-SUCCESS'];
+      return { isSuccess: true, message };
+    } else {
+      return { isSuccess: false, message: messages['WRONG-PASSWORD-CODE'] };
+    }
+  } else {
+    return { isSuccess: false, message: messages['WRONG-CREDENTIALS'] };
+  }
+};
+
+module.exports = { loginUser, createAccount, changePassword };

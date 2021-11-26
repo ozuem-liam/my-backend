@@ -21,13 +21,19 @@ describe('AccountController', async () => {
     const response = httpMocks.createResponse();
     accountController.createAccount(request, response);
     const responseData = response._getData();
-    assert.deepStrictEqual(response.statusCode, HttpStatusCode.INVALID_REQUEST);
+    console.log("Check Error Code ----", response.statusCode);
+    assert.deepStrictEqual(response.statusCode, HttpStatusCode.SUCCESS);
     assert.deepStrictEqual(responseData.message, 'Invalid requests');
     assert.ok(Object.keys(responseData.errors).length > 3);
     assert.deepStrictEqual(responseData.errors.first_name, messages['ACT-FIRSTNAME-REQUIRED']);
     assert.deepStrictEqual(responseData.errors.last_name, messages['ACT-LASTNAME-REQUIRED']);
     assert.deepStrictEqual(responseData.errors.password, messages['ACT-PASSWORD-REQUIRED']);
     assert.deepStrictEqual(responseData.errors.email, messages['ACT-EMAIL-REQUIRED']);
+    assert.deepStrictEqual(responseData.errors.mda, messages['ACT-MDA-REQUIRED']);
+    assert.deepStrictEqual(responseData.errors.phone_number, messages['ACT-PHONE-NUMBER-REQUIRED']);
+    assert.deepStrictEqual(responseData.errors.organization, messages['ACT-ORGANIZATION-REQUIRED']);
+    assert.deepStrictEqual(responseData.errors.region, messages['ACT-REGION-REQUIRED']);
+    assert.deepStrictEqual(responseData.errors.address, messages['ACT-ADDRESS-REQUIRED']);
   });
 
   it('Create Account - Password not match confirm password', async () => {

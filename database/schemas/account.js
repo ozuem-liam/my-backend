@@ -25,6 +25,55 @@ const account = {
     required: true,
     maxlength: 15,
     trim: true,
+  },
+  mda: {
+    type: String,
+    required: true,
+    maxlength: 15,
+    trim: true,
+  },
+  phone_number: {
+    type: String,
+    maxlength: 20,
+    default: '',
+    index: {
+      unique: true,
+      partialFilterExpression: { phone_number: { $gt: '' } },
+    },
+    trim: true,
+  },
+  organization: {
+    type: String,
+    required: true,
+    maxlength: 15,
+    trim: true,
+  },
+  regions: {
+    type: [String],
+    enum: ["general", "west", "central"],
+    default: 'general',
+  },
+  role: {
+    type: [String],
+    enum: [
+      'super_admin', 
+      'registration_admin',
+      'reception',
+      'accountant',
+      'verification/approval',
+      'MDA'
+    ],
+    default: 'Customer',
+  },
+  address: {
+    type: String,
+    required: true,
+    maxlength: 25,
+    trim: true,
+  },
+  timestamps : { 
+    type : Date, 
+    default: Date.now 
   }
 };
 

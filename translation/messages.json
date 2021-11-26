@@ -14,8 +14,17 @@
     "ACT-FIRSTNAME-REQUIRED": "account-firstname-required",
     "ACT-LASTNAME-REQUIRED": "account-lastname-required",
     "ACT-CONFIRM_PASSWORD": "account-lastname-required",
+    "ACT-MDA-REQUIRED": "account-mda-required",
+    "ACT-PHONE-NUMBER-REQUIRED": "account-phone-number-required",
+    "ACT-ORGANIZATION-REQUIRED": "account-organization-required",
+    "ACT-REGION-REQUIRED": "account-region-required",
+    "ACT-REGION-DO-NOT-EXIST": "account-region-do-not-exist",
+    "ACT-ROLE-REQUIRED": "account-role-required",
+    "ACT-ADDRESS-REQUIRED": "account-address-required",
     "ACT-INVALID-LOGIN": "account-invalid-login",
     "ACT-PASSWORD-RESET-SUCCESS": "password-reset-successful",
     "USER-NOT-FOUND": "user-not-found",
-    "NO-ACCOUNT-FOUND": "no-account-found"
+    "NO-ACCOUNT-FOUND": "no-account-found",
+    "WRONG-PASSWORD-CODE": "wrong-password-code",
+    "WRONG-CREDENTIALS": "wrong-credentials"
 }

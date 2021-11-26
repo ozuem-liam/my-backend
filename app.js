@@ -1,8 +1,9 @@
 require('dotenv').config();
 const express = require('express'),
+ config = require('./configs/config'),
   connectDB = require('./database/Database'),
   expressSession = require('express-session'),
-  accountRoutes = require('./routes/account'),
+  logger = require('./configs/logger'),
   cors = require('cors');
 
 connectDB();
@@ -26,9 +27,9 @@ app.get('/', (request, response) => {
 });
 
 //Route Middleware
-app.use('/account', accountRoutes);
+require('./routes/routes')(app);
 
-const PORT = process.env.PORT || 5000;
+const PORT = config.serverPort || 5000;
 
 // Run the server!
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => logger.log('error', `Server running on port ${PORT}`));

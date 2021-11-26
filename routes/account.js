@@ -1,9 +1,12 @@
 const express = require('express'),
   router = express.Router(),
-  registrationSchema = require('../utils/validation-schemas/account'),
+  verifyToken = require('../middleware/auth'),
+  { registrationSchema, changePasswordSchema } = require('../utils/validation-schemas/account'),
   { account } = require('../controllers');
 
 router.post('/', registrationSchema, account.createAccount);
-router.patch('/', account.loginUser);
+router.patch('/login', account.loginUser);
+router.patch('/update/password', verifyToken, changePasswordSchema, account.changePassword);
+router.get('/logout', account.logoutUser);
 
 module.exports = router;
