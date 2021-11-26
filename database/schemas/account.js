@@ -63,7 +63,7 @@ const account = {
       'verification/approval',
       'MDA'
     ],
-    default: 'Customer',
+    default: 'super_admin',
   },
   address: {
     type: String,
