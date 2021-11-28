@@ -10,6 +10,12 @@ const registrationMockRequest = {
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
     confirm_password: password,
+    mda: faker.company.companyName(),
+    phone_number: faker.phone.phoneNumber(),
+    organization: faker.company.companyName(),
+    region: faker.address.city(),
+    role: 'super_admin',
+    address: faker.address.direction(),
   },
   loginMockRequest = {
     email: faker.internet.email(),
