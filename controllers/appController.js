@@ -1,7 +1,11 @@
 const HttpStatusCode = require('../models/HttpStatusCode');
 const LMResponse = require('../models/LMResponse');
 
-const sendSuccess = ({ response, data = {}, message = 'Request successful' }) => {
+const sendSuccess = ({ 
+  response, 
+  data = {}, 
+  message = 'Request successful'
+}) => {
   const resp = new LMResponse({ data, message });
   return response.status(HttpStatusCode.SUCCESS).send(resp);
 };

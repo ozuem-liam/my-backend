@@ -43,7 +43,7 @@ const createAccount = async ({
       return { isSuccess: false, message };
     }
     const hashPassword = await Account.hashPassword(password);
-    const account = await new Account({
+    const account = await Account.create({
       email,
       first_name,
       last_name,
@@ -54,7 +54,7 @@ const createAccount = async ({
       region,
       role,
       address,
-    }).save();
+    });
     if (account) {
       await loginUser({ email, password });
       let destination = 'dashboard',

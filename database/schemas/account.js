@@ -12,7 +12,7 @@ const account = {
     type: String,
     required: true,
     trim: true,
-    minlength: 8,
+    minlength: 8
   },
   first_name: {
     type: String,
@@ -56,14 +56,16 @@ const account = {
   role: {
     type: [String],
     enum: [
-      'super_admin', 
+      'super_admin',
+      'admin',
+      'user',
       'registration_admin',
       'reception',
       'accountant',
       'verification/approval',
       'MDA'
     ],
-    default: 'super_admin',
+    default: 'user',
   },
   address: {
     type: String,
@@ -72,6 +74,7 @@ const account = {
     trim: true,
   },
   timestamps : { 
+    immutable: true,
     type : Date, 
     default: Date.now 
   }
