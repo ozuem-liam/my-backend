@@ -1,10 +1,10 @@
 require('dotenv').config();
-const express = require('express'),
- config = require('./configs/config'),
-  connectDB = require('./database/Database'),
-  expressSession = require('express-session'),
-  logger = require('./configs/logger'),
-  cors = require('cors');
+const express = require('express');
+const config = require('./configs/config');
+const connectDB = require('./database/Database');
+const expressSession = require('express-session');
+const logger = require('./configs/logger');
+const cors = require('cors');
 
 connectDB();
 
@@ -27,7 +27,7 @@ app.get('/', (request, response) => {
 });
 
 //Route Middleware
-require('./routes/routes')(app);
+require('./helpers/routes')(app);
 
 const PORT = config.serverPort || 5000;
 

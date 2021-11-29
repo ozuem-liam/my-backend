@@ -1,5 +1,5 @@
-const { createLogger, transports, format } = require('winston'),
-  config = require('./config');
+const { createLogger, transports, format } = require('winston');
+const config = require('./config');
 require('winston-mongodb');
 
 const logger = createLogger({

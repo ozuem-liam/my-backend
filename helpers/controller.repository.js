@@ -1,4 +1,4 @@
-const AccountController = require('./accountController');
+const AccountController = require('../apis/accountModule/account.controller');
 
 const controllers = {
   account: AccountController,

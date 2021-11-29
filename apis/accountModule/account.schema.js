@@ -12,7 +12,7 @@ const account = {
     type: String,
     required: true,
     trim: true,
-    minlength: 8
+    minlength: 8,
   },
   first_name: {
     type: String,
@@ -50,7 +50,7 @@ const account = {
   },
   regions: {
     type: [String],
-    enum: ["general", "west", "central"],
+    enum: ['general', 'west', 'central'],
     default: 'general',
   },
   role: {
@@ -63,7 +63,7 @@ const account = {
       'reception',
       'accountant',
       'verification/approval',
-      'MDA'
+      'MDA',
     ],
     default: 'user',
   },
@@ -73,11 +73,14 @@ const account = {
     maxlength: 25,
     trim: true,
   },
-  timestamps : { 
+  last_login: {
+    type: Date,
+  },
+  timestamps: {
     immutable: true,
-    type : Date, 
-    default: Date.now 
-  }
+    type: Date,
+    default: Date.now,
+  },
 };
 
 const accountDBSchema = mongoose.Schema(account);

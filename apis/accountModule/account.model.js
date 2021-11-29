@@ -1,6 +1,6 @@
-const mongoose = require('mongoose'),
-  bcrypt = require('bcrypt'),
-  { accountDBSchema } = require('../schemas/account');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const { accountDBSchema } = require('./account.schema');
 
 accountDBSchema.methods.isAMatchPassword = async function (plainPassword) {
   return await bcrypt.compare(plainPassword, this.password);

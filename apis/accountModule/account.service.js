@@ -1,22 +1,21 @@
-const { Account } = require('../database/models/Account'),
-  messages = require('../translation/messages.json');
-const { jwtTokens } = require('../utils/jwt-helper');
+const { Account } = require('./account.model');
+const messages = require('../../translation/messages.json');
+const { jwtTokens } = require('../../utils/jwt-helper');
 
 const loginUser = async ({ email, password }) => {
+  let message;
   const account = await Account.findOne({ email });
   if (account) {
     if (await account.isAMatchPassword(password)) {
       // sign a token
       const { _id, email, password } = account;
       const { accessToken } = jwtTokens({ _id, email, password });
-      let destination = 'dashboard',
-        message = messages['ACT-LOGIN-SUCCESS'],
-        isSuccess = true;
+      message = messages['ACT-LOGIN-SUCCESS'];
       account.last_login = Date.now();
       account.save();
-      return { isSuccess, account, destination, message, accessToken };
+      return { isSuccess: true, account, message, accessToken };
     } else {
-      let message = messages['ACT-INVALID-LOGIN'];
+      message = messages['ACT-INVALID-LOGIN'];
       return { isSuccess: false, message };
     }
   }
@@ -37,9 +36,10 @@ const createAccount = async ({
   address,
 }) => {
   try {
-    exist = await Account.exists({ email });
+    let message;
+    const exist = await Account.exists({ email });
     if (exist) {
-      const message = messages['ACT-EMAIL-EXIST'];
+      message = messages['ACT-EMAIL-EXIST'];
       return { isSuccess: false, message };
     }
     const hashPassword = await Account.hashPassword(password);
@@ -56,64 +56,49 @@ const createAccount = async ({
       address,
     });
     if (account) {
-      await loginUser({ email, password });
-      let destination = 'dashboard',
-        message = messages['ACT-LOGIN-SUCCESS'];
-      return {
-        isSuccess: true,
-        message,
-        destination,
-        account: formatAccountResponse(account),
-      };
+      const loggedIn = await loginUser({ email, password });
+      message = messages['ACT-LOGIN-SUCCESS'];
+      if (loggedIn) {
+        return { isSuccess: true, account, message, accessToken: loggedIn.accessToken };
+      }
     }
   } catch (error) {
+    console.log('error', error);
     return { isSuccess: false, message: error };
   }
 };
 
-const formatAccountResponse = (account) => {
-  const {
-    id,
-    email,
-    first_name,
-    last_name,
-    phone_number,
-    mda,
-    organization,
-    region,
-    role,
-    address,
-  } = account;
-
-  return {
-    id,
-    email,
-    first_name,
-    last_name,
-    phone_number,
-    mda,
-    organization,
-    region,
-    role,
-    address,
-  };
-};
-
 const changePassword = async ({ email, password, new_password }) => {
+  let message;
   const account = await Account.findOne({ email });
   if (account) {
     if (await account.isAMatchPassword(password)) {
       account.password = await Account.hashPassword(new_password);
       account.timestamp = { type: Date, default: Date.now };
       await account.save();
-      const message = messages['ACT-PASSWORD-RESET-SUCCESS'];
+      message = messages['ACT-PASSWORD-RESET-SUCCESS'];
       return { isSuccess: true, message };
     } else {
-      return { isSuccess: false, message: messages['WRONG-PASSWORD-CODE'] };
+      message = messages['WRONG-PASSWORD-CODE'];
+      return { isSuccess: false, message };
     }
   } else {
-    return { isSuccess: false, message: messages['WRONG-CREDENTIALS'] };
+    message = messages['WRONG-CREDENTIALS'];
+    return { isSuccess: false, message };
   }
 };
 
 module.exports = { loginUser, createAccount, changePassword };
+
+// .select(
+//   'id',
+//   'email',
+//   'first_name',
+//   'last_name',
+//   'phone_number',
+//   'mda',
+//   'organization',
+//   'region',
+//   'role',
+//   'address'
+// );
