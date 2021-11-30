@@ -31,6 +31,8 @@
     "PSP-OPERATOR-CREATED-SUCCESS": "psp-operator-created-successfuly",
     "PSP-OPERATOR-DELETE-SUCCESS": "psp-operator-delete-successfuly",
     "PSP-OPERATOR-DELETE-ERROR": "psp-operator-delete-error",
+    "PSP-OPERATOR-UPDATE-SUCCESS": "psp-operator-update-success",
+    "PSP-OPERATOR-UPDATE-ERROR": "psp-operator-update-error",
     "PSP-OPERATOR-EMAIL-REQUIRED": "psp-operator-email-required",
     "PSP-OPERATOR-EMAIL-EXIST": "psp-operator-email-exist",
     "PSP-OPERATOR-EMAIL-INVALID": "psp-operator-email-invalid",

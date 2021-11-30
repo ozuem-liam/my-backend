@@ -3,9 +3,7 @@ const messages = require('../../translation/messages.json');
 
 const getPspOperators = async ({ per_page, page, region }) => {
   const offset = (page - 1) * per_page;
-  const psps = await Psp.find({ region })
-    .skip(offset)
-    .limit(per_page);
+  const psps = await Psp.find({ region }).skip(offset).limit(per_page);
   if (psps) return { isSuccess: true, data: psps };
   const message = messages['NO-PSP-OPERATOR-FOUND'];
   return { isSuccess: false, message };
@@ -55,6 +53,19 @@ const createPspOperator = async ({
   }
 };
 
+const updatePspOperator = async (id, psp_data) => {
+  let message;
+  const query = { _id: id };
+  const update = { ...psp_data };
+  const options = { upsert: false, new: true };
+  const psp = await Psp.findOneAndUpdate(query, update, options);
+  message = messages['PSP-OPERATOR-UPDATE-SUCCESS'];
+  if (psp) return { isSuccess: true, data: psp };
+
+  message = messages['PSP-OPERATOR-UPDATE-ERROR'];
+  return { isSuccess: false, message };
+};
+
 const deletePspOperator = async (id) => {
   const query = { _id: id };
   let message;
@@ -67,4 +78,4 @@ const deletePspOperator = async (id) => {
   return { isSuccess: false, message };
 };
 
-module.exports = { createPspOperator, deletePspOperator, getPspOperators };
+module.exports = { createPspOperator, deletePspOperator, getPspOperators, updatePspOperator };
