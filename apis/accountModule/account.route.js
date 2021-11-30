@@ -8,8 +8,8 @@ const {
 const { account } = require('../../helpers/controller.repository');
 
 router.post('/', registrationSchema, account.createAccount);
-router.patch('/login', account.loginUser);
-router.patch('/update/password', verifyToken, changePasswordSchema, account.changePassword);
+router.post('/login', account.loginUser);
+router.post('/update/password', verifyToken, changePasswordSchema, account.changePassword);
 router.get('/logout', account.logoutUser);
 
 module.exports = router;

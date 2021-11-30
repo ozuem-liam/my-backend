@@ -63,7 +63,6 @@ const createAccount = async ({
       }
     }
   } catch (error) {
-    console.log('error', error);
     return { isSuccess: false, message: error };
   }
 };
