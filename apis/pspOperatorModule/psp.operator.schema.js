@@ -36,9 +36,9 @@ const psp_operator = {
     maxlength: 15,
     trim: true,
   },
-  regions: {
+  region: {
     type: [String],
-    enum: ["general", "west", "central"],
+    enum: ['general', 'west', 'central'],
     default: 'general',
   },
   address: {
@@ -77,10 +77,10 @@ const psp_operator = {
     maxlength: 25,
     trim: true,
   },
-  timestamps : { 
-    type : Date, 
-    default: Date.now 
-  }
+  timestamps: {
+    type: Date,
+    default: Date.now,
+  },
 };
 
 const pspOperatorDBSchema = mongoose.Schema(psp_operator);

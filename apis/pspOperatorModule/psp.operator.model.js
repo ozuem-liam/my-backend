@@ -1,5 +1,5 @@
-const mongoose = require('mongoose'),
-  { pspOperatorDBSchema } = require('../schemas/psp_operator');
+const mongoose = require('mongoose');
+const { pspOperatorDBSchema } = require('./psp.operator.schema');
 
 const Psp = mongoose.model('Psp', pspOperatorDBSchema);
 module.exports = { Psp };

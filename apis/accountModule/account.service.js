@@ -8,8 +8,8 @@ const loginUser = async ({ email, password }) => {
   if (account) {
     if (await account.isAMatchPassword(password)) {
       // sign a token
-      const { _id, email, password } = account;
-      const { accessToken } = jwtTokens({ _id, email, password });
+      const { _id, email, password, role } = account;
+      const { accessToken } = jwtTokens({ _id, email, password, role });
       message = messages['ACT-LOGIN-SUCCESS'];
       account.last_login = Date.now();
       account.save();
