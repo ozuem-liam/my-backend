@@ -52,6 +52,20 @@ const createPspOperator = async (request, response) => {
   }
 };
 
+const updatePspOperator = async (request, response) => {
+    const { id } = request.params;
+    const errors = validationResult(request);
+    const psp_data = request.body;
+    if (!errors.isEmpty()) {
+      return sendError({ response, errors });
+    }
+    const { isSuccess, data, message } = await pspService.updatePspOperator(id, psp_data);
+    if (isSuccess) {
+      return sendSuccess({ response, data });
+    }
+    return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+  };
+
 const deletePspOperator = async (request, response) => {
   const { id } = request.params;
   const { isSuccess, message, psp } = await pspService.deletePspOperator(id);
@@ -61,4 +75,4 @@ const deletePspOperator = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-module.exports = { createPspOperator, deletePspOperator, getPspOperators };
+module.exports = { createPspOperator, deletePspOperator, getPspOperators, updatePspOperator };
