@@ -38,10 +38,26 @@ const PspRegistrationSchema = [
   ];
   
 
-  const GetPspSchema = [
-    // query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt(),
-    // query('page', '"page" must be a int, not empty').notEmpty().isInt(),
-    // query('region', '"region" must be a string, not empty').notEmpty().toString()
+  const PspUpdateSchema = [
+    body('psp_operator_email')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-EMAIL-REQUIRED'] })
+      .bail()
+      .isEmail()
+      .withMessage({ 'string.email': messages['PSP-OPERATOR-EMAIL-INVALID'] }),
+    body('psp_operator_name').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-NAME-REQUIRED'] }),
+    body('ceo_name').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-CEO-NAME-REQUIRED'] }),
+    body('location').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-LOCATION-REQUIRED'] }),
+    body('psp_operator_phone_number')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-PHONE-NUMBER-REQUIRED'] }),
+    body('district')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-DISTRICT-REQUIRED'] }),
+    body('slots')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-SLOTS-REQUIRED'] }),
+    body('address').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-ADDRESS-REQUIRED'] }),
   ];
 
-  module.exports = { PspRegistrationSchema, GetPspSchema }
+  module.exports = { PspRegistrationSchema, PspUpdateSchema }
