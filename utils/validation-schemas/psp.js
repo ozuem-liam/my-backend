@@ -38,4 +38,26 @@ const PspRegistrationSchema = [
   ];
   
 
-  module.exports = { PspRegistrationSchema }
+  const PspUpdateSchema = [
+    body('psp_operator_email')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-EMAIL-REQUIRED'] })
+      .bail()
+      .isEmail()
+      .withMessage({ 'string.email': messages['PSP-OPERATOR-EMAIL-INVALID'] }),
+    body('psp_operator_name').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-NAME-REQUIRED'] }),
+    body('ceo_name').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-CEO-NAME-REQUIRED'] }),
+    body('location').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-LOCATION-REQUIRED'] }),
+    body('psp_operator_phone_number')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-PHONE-NUMBER-REQUIRED'] }),
+    body('district')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-DISTRICT-REQUIRED'] }),
+    body('slots')
+      .notEmpty()
+      .withMessage({ 'any.required': messages['PSP-OPERATOR-SLOTS-REQUIRED'] }),
+    body('address').notEmpty().withMessage({ 'any.required': messages['PSP-OPERATOR-ADDRESS-REQUIRED'] }),
+  ];
+
+  module.exports = { PspRegistrationSchema, PspUpdateSchema }
