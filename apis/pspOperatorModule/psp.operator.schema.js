@@ -4,13 +4,12 @@ const psp_operator = {
   psp_operator_name: {
     type: String,
     required: true,
-    maxlength: 15,
     trim: true,
   },
   ceo_name: {
     type: String,
     required: true,
-    maxlength: 15,
+    maxlength: 25,
     trim: true,
   },
   psp_operator_phone_number: {
@@ -33,7 +32,7 @@ const psp_operator = {
   location: {
     type: String,
     required: true,
-    maxlength: 15,
+    maxlength: 35,
     trim: true,
   },
   region: {
@@ -44,7 +43,7 @@ const psp_operator = {
   address: {
     type: String,
     required: true,
-    maxlength: 25,
+    maxlength: 35,
     trim: true,
   },
   district: {
@@ -62,13 +61,13 @@ const psp_operator = {
   account_number: {
     type: String,
     required: true,
-    maxlength: 25,
+    maxlength: 15,
     trim: true,
   },
   bank_name: {
     type: String,
     required: true,
-    maxlength: 25,
+    maxlength: 35,
     trim: true,
   },
   bank_branch_code: {

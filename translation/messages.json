@@ -64,5 +64,6 @@
     "FACILITY-SERVICE-CHARGE-REQUIRED": "facility-service-charge-required",
     "FACILITY-STATUS-REQUIRED": "facility-status-required",
     "FACILITY-STATUS-DO-NOT-EXIST": "facility-status-do-not-exist",
+    "FACILITY-DO-NOT-EXIST": "facility-do-not-exist",
     "FACILITY-SERVICING-PSP-REQUIRED": "facility-servicing-psp-required"
 }

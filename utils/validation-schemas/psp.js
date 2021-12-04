@@ -38,10 +38,4 @@ const PspRegistrationSchema = [
   ];
   
 
-  const GetPspSchema = [
-    // query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt(),
-    // query('page', '"page" must be a int, not empty').notEmpty().isInt(),
-    // query('region', '"region" must be a string, not empty').notEmpty().toString()
-  ];
-
-  module.exports = { PspRegistrationSchema, GetPspSchema }
+  module.exports = { PspRegistrationSchema }

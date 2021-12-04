@@ -1,6 +1,8 @@
 const { Facility } = require('./facility.model');
 const messages = require('../../translation/messages.json');
 const cloudinary = require('../../helpers/cloudinary.service');
+
+
 const getFacility = async ({ per_page, page }) => {
   const offset = (page - 1) * per_page;
   const facilities = await Facility.find().skip(offset).limit(per_page);
@@ -62,16 +64,59 @@ const createFacility = async ({
   }
 };
 
-const updateFacility = async (facility_data) => {
+const updateFacility = async ({
+  id,
+  facility_name,
+  facility_email_1,
+  facility_email_2,
+  facility_phone_number_1,
+  facility_phone_number_2,
+  location,
+  address,
+  charge_per_trip,
+  number_of_trips,
+  number_of_bins,
+  service_charge,
+  status,
+  external_id,
+  servicing_psp,
+  facility_front_image,
+  facility_waste_image,
+  front_image_cloudinary_id,
+  waste_image_cloudinary_id,
+}) => {
   let message;
-  console.log('touch', facility_data);
   try {
-    const query = { _id: facility_data.id };
-    const update = { ...facility_data };
+    const query = { _id: id };
+    const update = {
+      facility_name,
+      facility_email_1,
+      facility_email_2,
+      facility_phone_number_1,
+      facility_phone_number_2,
+      location,
+      address,
+      charge_per_trip,
+      number_of_trips,
+      number_of_bins,
+      service_charge,
+      status,
+      external_id,
+      servicing_psp,
+      facility_front_image,
+      facility_waste_image,
+      front_image_cloudinary_id,
+      waste_image_cloudinary_id,
+    };
     const options = { upsert: false, new: true };
     const facility = await Facility.findOneAndUpdate(query, update, options);
     message = messages['FACILITY-UPDATE-SUCCESS'];
-    if (facility) return { isSuccess: true, data: facility };
+    if (facility) {
+      return { isSuccess: true, data: facility };
+    } else {
+      message = messages['FACILITY-DO-NOT-EXIST'];
+      return { isSuccess: false, message };
+    }
   } catch (error) {
     message = messages['FACILITY-UPDATE-ERROR'];
     return { isSuccess: false, message };

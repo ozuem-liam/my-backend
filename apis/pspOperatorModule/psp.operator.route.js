@@ -3,7 +3,6 @@ const router = express.Router();
 const verifyToken = require('../../middleware/auth');
 const {
   PspRegistrationSchema,
-  GetPspSchema,
 } = require('../../utils/validation-schemas/psp');
 const { psp } = require('../../helpers/controller.repository');
 
