@@ -86,6 +86,14 @@ const facility = {
     enum: ['Active', 'Completed'],
     default: 'Completed',
   },
+  front_image_cloudinary_id: {
+    type: String,
+    required: false,
+  },
+  waste_image_cloudinary_id: {
+    type: String,
+    required: false,
+  },
   external_id: {
     type: String,
     maxlength: 15,
@@ -105,13 +113,13 @@ const facility = {
     type: String,
     required: true,
   },
-  category: [
+  categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
     },
   ],
-  tariff: [
+  tariffs: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Tariff',

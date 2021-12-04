@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const category = {
   category: {
@@ -6,14 +7,8 @@ const category = {
     trim: true,
   },
   category_id:  {
-    type: String,
-    maxlength: 30,
-    default: '',
-    index: {
-      unique: true,
-      partialFilterExpression: { external_id: { $gt: '' } },
-    },
-    trim: true,
+    type: Schema.Types.ObjectId,
+    ref: 'Facility',
   },
 };
 
