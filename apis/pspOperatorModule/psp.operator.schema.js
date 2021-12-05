@@ -9,7 +9,6 @@ const psp_operator = {
   ceo_name: {
     type: String,
     required: true,
-    maxlength: 25,
     trim: true,
   },
   psp_operator_phone_number: {
@@ -32,7 +31,6 @@ const psp_operator = {
   location: {
     type: String,
     required: true,
-    maxlength: 35,
     trim: true,
   },
   region: {
@@ -43,19 +41,16 @@ const psp_operator = {
   address: {
     type: String,
     required: true,
-    maxlength: 35,
     trim: true,
   },
   district: {
     type: String,
     required: true,
-    maxlength: 25,
     trim: true,
   },
   slots: {
     type: String,
     required: true,
-    maxlength: 25,
     trim: true,
   },
   account_number: {
@@ -67,15 +62,19 @@ const psp_operator = {
   bank_name: {
     type: String,
     required: true,
-    maxlength: 35,
     trim: true,
   },
   bank_branch_code: {
     type: String,
     required: true,
-    maxlength: 25,
     trim: true,
   },
+  facilities: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Facility',
+    },
+  ],
   timestamps: {
     type: Date,
     default: Date.now,

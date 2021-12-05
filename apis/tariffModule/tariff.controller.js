@@ -1,6 +1,7 @@
 const tariffService = require('./tariff.service');
 const { validationResult } = require('express-validator');
 const HttpStatusCode = require('../../models/HttpStatusCode');
+const cloudinary = require('../../helpers/cloudinary.service');
 const { query } = require('express-validator');
 const { sendSuccess, sendError } = require('../../helpers/response.format');
 
@@ -21,7 +22,7 @@ const getTariff = async (request, response) => {
     page,
   });
   if (isSuccess) {
-    return sendSuccess({ response, data });
+    return sendSuccess({ response, data, message });
   }
 
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
@@ -30,38 +31,60 @@ const getTariff = async (request, response) => {
 const createTariff = async (request, response) => {
   try {
     const errors = validationResult(request);
-    const data = request.body;
     if (!errors.isEmpty()) {
       return sendError({ response, errors });
     }
-    const { isSuccess, message, tariff } = await tariffService.createTariff(data);
+
+    const file = await cloudinary.uploader.upload(request.file.path);
+
+    const { facility_id, tariff_charge, tariff_charge_code, duration, amount } = request.body;
+    const { isSuccess, message, data } = await tariffService.createTariff({
+      facility_id,
+      tariff_charge,
+      tariff_charge_code,
+      duration,
+      amount,
+      tariff_image: file.secure_url,
+      cloudinary_id: file.public_id,
+    });
     if (isSuccess) {
       return sendSuccess({
         response,
         message,
-        data: { tariff },
+        data,
       });
     } else {
       return sendError({ response, message });
     }
   } catch (error) {
-    return sendError({ response, message, error });
+    console.log(error);
+    return sendError({ response, error });
   }
 };
 
 const updateTariff = async (request, response) => {
-    const { id } = request.params;
-    const errors = validationResult(request);
-    const tariff_data = request.body;
-    if (!errors.isEmpty()) {
-      return sendError({ response, errors });
-    }
-    const { isSuccess, data, message } = await tariffService.updateTariff(id, tariff_data);
-    if (isSuccess) {
-      return sendSuccess({ response, data });
-    }
-    return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
-  };
+  const { id } = request.params;
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return sendError({ response, errors });
+  }
+  const { facility_id, tariff_charge, tariff_charge_code, duration, amount } = request.body;
+  const file = await cloudinary.uploader.upload(request.file.path);
+  const { isSuccess, data, message } = await tariffService.updateTariff({
+    id,
+    facility_id,
+    tariff_charge,
+    tariff_charge_code,
+    duration,
+    amount,
+    tariff_image: file.secure_url,
+    cloudinary_id: file.public_id,
+  });
+  if (isSuccess) {
+    return sendSuccess({ response, data, message });
+  }
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
 
 const deleteTariff = async (request, response) => {
   const { id } = request.params;

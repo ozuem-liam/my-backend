@@ -49,6 +49,7 @@ const createFacility = async (request, response) => {
     fs.unlinkSync(path);
   }
   const {
+    psp_id,
     facility_name,
     facility_email_1,
     facility_email_2,
@@ -65,6 +66,7 @@ const createFacility = async (request, response) => {
     servicing_psp,
   } = request.body;
   const { isSuccess, message, data } = await facilityService.createFacility({
+    psp_id,
     facility_name,
     facility_email_1,
     facility_email_2,

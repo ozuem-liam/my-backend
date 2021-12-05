@@ -29,7 +29,11 @@ const tariff = {
     required: true,
     trim: true,
   },
-  facility_id: {
+  cloudinary_id: {
+    type: String,
+    required: false,
+  },
+  tariff_id: {
     type: Schema.Types.ObjectId,
     ref: 'Facility',
   },

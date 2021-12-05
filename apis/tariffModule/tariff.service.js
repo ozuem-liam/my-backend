@@ -1,5 +1,6 @@
 const { Tariff } = require('./tariff.model');
-const { Facility } = require('../facilityModule/facility.model')
+const { Facility } = require('../facilityModule/facility.model');
+const cloudinary = require('../../helpers/cloudinary.service');
 const messages = require('../../translation/messages.json');
 
 const getTariff = async ({ per_page, page }) => {
@@ -11,30 +12,32 @@ const getTariff = async ({ per_page, page }) => {
 };
 
 const createTariff = async ({
-    facility_id, 
-    tariff_charge, 
-    tariff_charge_code, 
-    duration, 
-    amount, 
-    tariff_image
+  facility_id,
+  tariff_charge,
+  tariff_charge_code,
+  duration,
+  amount,
+  tariff_image,
+  cloudinary_id,
 }) => {
   try {
     let message;
     const tariff = await Tariff.create({
-        facility_id, 
-        tariff_charge, 
-        tariff_charge_code, 
-        duration, 
-        amount, 
-        tariff_image
+      facility_id,
+      tariff_charge,
+      tariff_charge_code,
+      duration,
+      amount,
+      tariff_image,
+      cloudinary_id,
     });
     if (tariff) {
       message = messages['TARIFF-CREATED-SUCCESS'];
       const query = { $push: { tariffs: tariff._id } };
       const options = { new: true, useFindAndModify: false };
-      
+
       const facility = await Facility.findByIdAndUpdate(facility_id, query, options);
-  
+
       if (tariff && facility) return { isSuccess: true, data: tariff, message };
     }
   } catch (error) {
@@ -42,10 +45,23 @@ const createTariff = async ({
   }
 };
 
-const updateTariff = async (id, tariff_data) => {
+const updateTariff = async ({
+  id,
+  tariff_charge,
+  tariff_charge_code,
+  duration,
+  amount,
+  tariff_image,
+}) => {
   let message;
   const query = { _id: id };
-  const update = { ...tariff_data};
+  const update = {
+    tariff_charge,
+    tariff_charge_code,
+    duration,
+    amount,
+    tariff_image,
+  };
   const options = { upsert: false, new: true };
   const tariff = await Tariff.findOneAndUpdate(query, update, options);
   message = messages['TARIFF-UPDATE-SUCCESS'];
@@ -57,15 +73,17 @@ const updateTariff = async (id, tariff_data) => {
 
 const deleteTariff = async (id) => {
   let message;
-  const query = { _id: id };
-  const tariff = await Tariff.findOneAndRemove(query);
-
-  message = messages['TARIFF-DELETE-SUCCESS'];
-  if (tariff) return { isSuccess: true, tariff, message };
-
-  message = messages['TARIFF-DELETE-ERROR'];
-  return { isSuccess: false, message };
+  try {
+    const tariff = await Tariff.findById(id);
+    await cloudinary.uploader.destroy(tariff.cloudinary_id);
+    await tariff.remove();
+    message = messages['TARIFF-DELETE-SUCCESS'];
+    if (tariff) return { isSuccess: true, tariff, message };
+  } catch (error) {
+    console.log("touch",error)
+    message = messages['TARIFF-DELETE-ERROR'];
+    return { isSuccess: false, message };
+  }
 };
 
 module.exports = { createTariff, deleteTariff, getTariff, updateTariff };
-

@@ -1,7 +1,7 @@
 const { Facility } = require('./facility.model');
+const { Psp } = require('../../apis/pspOperatorModule/psp.operator.model');
 const messages = require('../../translation/messages.json');
 const cloudinary = require('../../helpers/cloudinary.service');
-
 
 const getFacility = async ({ per_page, page }) => {
   const offset = (page - 1) * per_page;
@@ -12,6 +12,7 @@ const getFacility = async ({ per_page, page }) => {
 };
 
 const createFacility = async ({
+  psp_id,
   facility_name,
   facility_email_1,
   facility_email_2,
@@ -34,6 +35,7 @@ const createFacility = async ({
   let message;
   try {
     const facility = await Facility.create({
+      psp_id,
       facility_name,
       facility_email_1,
       facility_email_2,
@@ -54,11 +56,13 @@ const createFacility = async ({
       waste_image_cloudinary_id,
     });
     if (facility) {
+      let psp = await Psp.findById(psp_id);
+      psp.facilities.push(facility);
+      psp.save();
       message = messages['FACILITY-CREATED-SUCCESS'];
       if (facility) return { isSuccess: true, data: facility, message };
     }
   } catch (error) {
-    console.log(error);
     message = messages['FACILITY-CREATED-ERROR'];
     return { isSuccess: false, message, error };
   }
