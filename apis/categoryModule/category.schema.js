@@ -10,6 +10,10 @@ const category = {
     type: Schema.Types.ObjectId,
     ref: 'Facility',
   },
+  timestamps: {
+    type: Date,
+    default: Date.now,
+  },
 };
 
 const categoryDBSchema = mongoose.Schema(category);

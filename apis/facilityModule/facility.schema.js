@@ -125,6 +125,16 @@ const facility = {
       ref: 'Tariff',
     },
   ],
+  invoices: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Invoice',
+    },
+  ],
+  timestamps: {
+    type: Date,
+    default: Date.now,
+  },
 };
 
 const facilityDBSchema = mongoose.Schema(facility);
