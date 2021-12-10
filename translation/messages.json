@@ -76,5 +76,12 @@
     "'CATEGORY-UPDATE-ERROR": "category-updated-error",
     "CATEGORY-DELETE-SUCCESS": "category-deleted-successfully",
     "CATEGORY-DELETE-ERROR": "category-deleted-error",
-    "CATEGORY-EXIST": "category-exist"
+    "CATEGORY-EXIST": "category-exist",
+    "NO-INVOICE-FOUND": "no-invoice-found",
+    "INVOICE-EXIST": "invoice-exist",
+    "INVOICE-CREATED-SUCCESS": "invoice-created-successfully",
+    "INVOICE-UPDATE-SUCCESS": "invoice-update-successfully",
+    "INVOICE-UPDATE-ERROR": "invoice-update-error",
+    "INVOICE-DELETE-SUCCESS": "invoice-deleted-successfully",
+    "INVOICE-DELETE-ERROR": "invoice-delete-error"
 }
