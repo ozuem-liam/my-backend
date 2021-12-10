@@ -25,7 +25,7 @@ const createInvoice = async ({ facility_id, month, year }) => {
     });
     if (invoice_data) {
       message = messages['INVOICE-CREATED-SUCCESS'];
-      const query = { $push: { categories: invoice_data._id } };
+      const query = { $push: { invoices: invoice_data._id } };
       const options = { new: true, useFindAndModify: false };
 
       const facility = await Facility.findByIdAndUpdate(facility_id, query, options);
