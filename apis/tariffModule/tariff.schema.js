@@ -37,6 +37,10 @@ const tariff = {
     type: Schema.Types.ObjectId,
     ref: 'Facility',
   },
+  timestamps: {
+    type: Date,
+    default: Date.now,
+  },
 };
 
 const tariffDBSchema = mongoose.Schema(tariff);

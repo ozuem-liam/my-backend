@@ -4,7 +4,6 @@ const HttpStatusCode = require('../../models/HttpStatusCode');
 const { query } = require('express-validator');
 const { sendSuccess, sendError } = require('../../helpers/response.format');
 const cloudinary = require('../../helpers/cloudinary.service');
-const multer = require('multer');
 const fs = require('fs');
 
 const PER_PAGE = 10;
