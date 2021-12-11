@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../../middleware/auth');
-const { FacilityRegistrationSchema } = require('../../utils/validation-schemas/facility');
+const { FacilityRegistrationSchema, FacilityUpdateSchema  } = require('../../utils/validation-schemas/facility');
 const { facility } = require('../../helpers/controller.repository');
 const upload = require('../../helpers/upload.service');
 
@@ -10,7 +10,7 @@ router.post(
   '/',
   verifyToken,
   upload.array('image'),
-  FacilityRegistrationSchema,
+  FacilityUpdateSchema,
   facility.createFacility
 );
 router.post(
