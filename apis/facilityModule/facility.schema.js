@@ -12,14 +12,12 @@ const facility = {
     lowercase: true,
     trim: true,
     unique: true,
-    required: true,
   },
   facility_email_2: {
     type: String,
     lowercase: true,
     trim: true,
     unique: true,
-    required: true,
   },
   facility_phone_number_1: {
     type: String,
@@ -43,11 +41,9 @@ const facility = {
   },
   facility_front_image: {
     type: String,
-    required: true,
   },
   location: {
     type: String,
-    required: true,
     maxlength: 15,
     trim: true,
   },
@@ -59,25 +55,21 @@ const facility = {
   },
   charge_per_trip: {
     type: Number,
-    required: true,
     maxlength: 15,
     trim: true,
   },
   number_of_trips: {
     type: Number,
-    required: true,
     maxlength: 15,
     trim: true,
   },
   number_of_bins: {
     type: Number,
-    required: true,
     maxlength: 15,
     trim: true,
   },
   service_charge: {
     type: Number,
-    required: true,
     maxlength: 15,
     trim: true,
   },
@@ -85,6 +77,11 @@ const facility = {
     type: [String],
     enum: ['Active', 'Completed'],
     default: 'Completed',
+  },
+  billing_type: {
+    type: [String],
+    enum: ['PER TRIP', 'MONTHLY'],
+    default: 'PER TRIP',
   },
   front_image_cloudinary_id: {
     type: String,
@@ -106,12 +103,10 @@ const facility = {
   },
   servicing_psp: {
     type: String,
-    required: true,
     trim: true,
   },
   facility_waste_image: {
     type: String,
-    required: true,
   },
   categories: [
     {
