@@ -10,14 +10,14 @@ router.post(
   '/',
   verifyToken,
   upload.array('image'),
-  FacilityUpdateSchema,
+  FacilityRegistrationSchema,
   facility.createFacility
 );
 router.post(
   '/update/:id',
   verifyToken,
   upload.array('image'),
-  FacilityRegistrationSchema,
+  FacilityUpdateSchema,
   facility.updateFacility
 );
 router.delete('/delete/:id', verifyToken, facility.deleteFacility);
