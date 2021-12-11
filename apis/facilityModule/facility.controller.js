@@ -39,18 +39,14 @@ const createFacility = async (request, response) => {
     facility_name,
     address,
     service_charge,
-    status,
     billing_type,
-    external_id,
   } = request.body;
   const { isSuccess, message, data } = await facilityService.createFacility({
     psp_id,
     facility_name,
     address,
     service_charge,
-    status,
     billing_type,
-    external_id,
   });
   if (isSuccess) {
     return sendSuccess({

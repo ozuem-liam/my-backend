@@ -48,9 +48,6 @@ const FacilityUpdateSchema = [
   const FacilityRegistrationSchema = [
     body('facility_name').notEmpty().withMessage({ 'any.required': messages['FACILITY-NAME-REQUIRED'] }),
     body('address'),
-    body('status')
-      .isIn(['Active', 'Completed'])
-      .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
     body('billing_type')
       .isIn(['PER TRIP', 'MONTHLY'])
       .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),

@@ -16,9 +16,7 @@ const createFacility = async ({
   facility_name,
   address,
   service_charge,
-  status,
   billing_type,
-  external_id,
 }) => {
   let message;
   try {
@@ -27,9 +25,7 @@ const createFacility = async ({
       facility_name,
       address,
       service_charge,
-      status,
       billing_type,
-      external_id,
     });
     if (facility) {
       let psp = await Psp.findById(psp_id);
