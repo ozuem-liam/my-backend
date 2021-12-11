@@ -34,56 +34,23 @@ const createFacility = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const uploader = async (path) => {
-    return await cloudinary.uploader.upload(path);
-  };
-  const urls = [];
-  const files = request.files;
-  for (const file of files) {
-    const { path } = file;
-
-    const newPath = await uploader(path);
-
-    urls.push(newPath);
-    fs.unlinkSync(path);
-  }
   const {
     psp_id,
     facility_name,
-    facility_email_1,
-    facility_email_2,
-    facility_phone_number_1,
-    facility_phone_number_2,
-    location,
     address,
-    charge_per_trip,
-    number_of_trips,
-    number_of_bins,
     service_charge,
     status,
+    billing_type,
     external_id,
-    servicing_psp,
   } = request.body;
   const { isSuccess, message, data } = await facilityService.createFacility({
     psp_id,
     facility_name,
-    facility_email_1,
-    facility_email_2,
-    facility_phone_number_1,
-    facility_phone_number_2,
-    location,
     address,
-    charge_per_trip,
-    number_of_trips,
-    number_of_bins,
     service_charge,
     status,
+    billing_type,
     external_id,
-    servicing_psp,
-    facility_front_image: urls[0].secure_url,
-    facility_waste_image: urls[1].secure_url,
-    front_image_cloudinary_id: urls[0].public_id,
-    waste_image_cloudinary_id: urls[1].public_id,
   });
   if (isSuccess) {
     return sendSuccess({

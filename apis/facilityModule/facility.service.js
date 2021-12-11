@@ -14,46 +14,22 @@ const getFacility = async ({ per_page, page }) => {
 const createFacility = async ({
   psp_id,
   facility_name,
-  facility_email_1,
-  facility_email_2,
-  facility_phone_number_1,
-  facility_phone_number_2,
-  location,
   address,
-  charge_per_trip,
-  number_of_trips,
-  number_of_bins,
   service_charge,
   status,
+  billing_type,
   external_id,
-  servicing_psp,
-  facility_front_image,
-  facility_waste_image,
-  front_image_cloudinary_id,
-  waste_image_cloudinary_id,
 }) => {
   let message;
   try {
     const facility = await Facility.create({
       psp_id,
       facility_name,
-      facility_email_1,
-      facility_email_2,
-      facility_phone_number_1,
-      facility_phone_number_2,
-      location,
       address,
-      charge_per_trip,
-      number_of_trips,
-      number_of_bins,
       service_charge,
       status,
+      billing_type,
       external_id,
-      servicing_psp,
-      facility_front_image,
-      facility_waste_image,
-      front_image_cloudinary_id,
-      waste_image_cloudinary_id,
     });
     if (facility) {
       let psp = await Psp.findById(psp_id);

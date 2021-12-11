@@ -52,7 +52,7 @@ const FacilityUpdateSchema = [
       .isIn(['Active', 'Completed'])
       .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
     body('billing_type')
-      .isIn(['PER TRIP ', 'MONTHLY'])
+      .isIn(['PER TRIP', 'MONTHLY'])
       .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
   ];
   
