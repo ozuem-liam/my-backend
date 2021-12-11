@@ -35,6 +35,7 @@ const createFacility = async ({
       if (facility) return { isSuccess: true, data: facility, message };
     }
   } catch (error) {
+    console.log(error);
     message = messages['FACILITY-CREATED-ERROR'];
     return { isSuccess: false, message, error };
   }
