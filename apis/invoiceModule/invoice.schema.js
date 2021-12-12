@@ -24,6 +24,10 @@ const invoice = {
     type: [String],
     required: true,
   },
+  type: {
+    type: [String],
+    enum: ['Psp', 'Facility'],
+  },
   invoice_id: {
     type: Schema.Types.ObjectId,
     ref: 'Facility',

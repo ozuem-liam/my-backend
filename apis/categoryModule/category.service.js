@@ -1,6 +1,4 @@
 const { Category } = require('./category.model');
-const { Facility } = require('../facilityModule/facility.model');
-const cloudinary = require('../../helpers/cloudinary.service');
 const messages = require('../../translation/messages.json');
 
 const getCategory = async ({ per_page, page }) => {
@@ -11,10 +9,7 @@ const getCategory = async ({ per_page, page }) => {
   return { isSuccess: false, message };
 };
 
-const createCategory = async ({
-  facility_id,
-  category,
-}) => {
+const createCategory = async ({ category }) => {
   let message;
   try {
     const exist = await Category.exists({ category });
@@ -23,31 +18,22 @@ const createCategory = async ({
       return { isSuccess: false, message };
     }
     const category_data = await Category.create({
-      facility_id,
       category,
     });
     if (category_data) {
       message = messages['CATEGORY-CREATED-SUCCESS'];
-      const query = { $push: { categories: category_data._id } };
-      const options = { new: true, useFindAndModify: false };
-
-      const facility = await Facility.findByIdAndUpdate(facility_id, query, options);
-
-      if (category_data && facility) return { isSuccess: true, data: category_data, message };
+      return { isSuccess: true, data: category_data, message };
     }
   } catch (error) {
     return { isSuccess: false, message: error };
   }
 };
 
-const updateCategory = async ({
-  id,
-  category
-}) => {
+const updateCategory = async ({ id, category }) => {
   let message;
   const query = { _id: id };
   const update = {
-    category
+    category,
   };
   const options = { upsert: false, new: true };
   const exist = await Category.exists({ category });

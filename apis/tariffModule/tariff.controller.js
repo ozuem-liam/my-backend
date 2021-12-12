@@ -37,9 +37,8 @@ const createTariff = async (request, response) => {
 
     const file = await cloudinary.uploader.upload(request.file.path);
 
-    const { facility_id, tariff_charge, tariff_charge_code, duration, amount } = request.body;
+    const { tariff_charge, tariff_charge_code, duration, amount } = request.body;
     const { isSuccess, message, data } = await tariffService.createTariff({
-      facility_id,
       tariff_charge,
       tariff_charge_code,
       duration,
@@ -57,7 +56,6 @@ const createTariff = async (request, response) => {
       return sendError({ response, message });
     }
   } catch (error) {
-    console.log(error);
     return sendError({ response, error });
   }
 };
@@ -68,11 +66,10 @@ const updateTariff = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { facility_id, tariff_charge, tariff_charge_code, duration, amount } = request.body;
+  const { tariff_charge, tariff_charge_code, duration, amount } = request.body;
   const file = await cloudinary.uploader.upload(request.file.path);
   const { isSuccess, data, message } = await tariffService.updateTariff({
     id,
-    facility_id,
     tariff_charge,
     tariff_charge_code,
     duration,

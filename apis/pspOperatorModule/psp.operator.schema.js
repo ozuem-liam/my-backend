@@ -75,6 +75,12 @@ const psp_operator = {
       ref: 'Facility',
     },
   ],
+  invoices: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Invoice',
+    },
+  ],
   timestamps: {
     type: Date,
     default: Date.now,

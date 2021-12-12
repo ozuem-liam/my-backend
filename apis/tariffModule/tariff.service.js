@@ -1,5 +1,4 @@
 const { Tariff } = require('./tariff.model');
-const { Facility } = require('../facilityModule/facility.model');
 const cloudinary = require('../../helpers/cloudinary.service');
 const messages = require('../../translation/messages.json');
 
@@ -12,7 +11,6 @@ const getTariff = async ({ per_page, page }) => {
 };
 
 const createTariff = async ({
-  facility_id,
   tariff_charge,
   tariff_charge_code,
   duration,
@@ -23,7 +21,6 @@ const createTariff = async ({
   try {
     let message;
     const tariff = await Tariff.create({
-      facility_id,
       tariff_charge,
       tariff_charge_code,
       duration,
@@ -33,12 +30,7 @@ const createTariff = async ({
     });
     if (tariff) {
       message = messages['TARIFF-CREATED-SUCCESS'];
-      const query = { $push: { tariffs: tariff._id } };
-      const options = { new: true, useFindAndModify: false };
-
-      const facility = await Facility.findByIdAndUpdate(facility_id, query, options);
-
-      if (tariff && facility) return { isSuccess: true, data: tariff, message };
+      return { isSuccess: true, data: tariff, message };
     }
   } catch (error) {
     return { isSuccess: false, message: error };
@@ -80,7 +72,6 @@ const deleteTariff = async (id) => {
     message = messages['TARIFF-DELETE-SUCCESS'];
     if (tariff) return { isSuccess: true, tariff, message };
   } catch (error) {
-    console.log("touch",error)
     message = messages['TARIFF-DELETE-ERROR'];
     return { isSuccess: false, message };
   }

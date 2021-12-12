@@ -4,39 +4,28 @@ const facility = {
   facility_name: {
     type: String,
     required: true,
-    maxlength: 15,
     trim: true,
   },
   facility_email_1: {
     type: String,
     lowercase: true,
     trim: true,
-    unique: true,
   },
   facility_email_2: {
     type: String,
     lowercase: true,
     trim: true,
-    unique: true,
   },
   facility_phone_number_1: {
     type: String,
     maxlength: 20,
     default: '',
-    index: {
-      unique: true,
-      partialFilterExpression: { phone_number: { $gt: '' } },
-    },
     trim: true,
   },
   facility_phone_number_2: {
     type: String,
     maxlength: 20,
     default: '',
-    index: {
-      unique: true,
-      partialFilterExpression: { phone_number: { $gt: '' } },
-    },
     trim: true,
   },
   facility_front_image: {
@@ -44,7 +33,6 @@ const facility = {
   },
   location: {
     type: String,
-    maxlength: 15,
     trim: true,
   },
   address: {
@@ -91,16 +79,6 @@ const facility = {
     type: String,
     required: false,
   },
-  external_id: {
-    type: String,
-    maxlength: 15,
-    default: '',
-    index: {
-      unique: true,
-      partialFilterExpression: { external_id: { $gt: '' } },
-    },
-    trim: true,
-  },
   servicing_psp: {
     type: String,
     trim: true,
@@ -108,18 +86,10 @@ const facility = {
   facility_waste_image: {
     type: String,
   },
-  categories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-    },
-  ],
-  tariffs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Tariff',
-    },
-  ],
+  category: {
+    type: String,
+    trim: true,
+  },
   invoices: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -62,6 +62,8 @@
     "FACILITY-NUMBER-OF-TRIPS-REQUIRED": "facility-number-of-trips-required",
     "FACILITY-NUMBER-OF-BINS-REQUIRED": "facility-number-of-bins-required",
     "FACILITY-SERVICE-CHARGE-REQUIRED": "facility-service-charge-required",
+    "FACILITY-CATEGORY-REQUIRED": "facility-category-required",
+    "FACILITY-ADDRESS-REQUIRED": "facility-address-required",
     "FACILITY-STATUS-REQUIRED": "facility-status-required",
     "FACILITY-STATUS-DO-NOT-EXIST": "facility-status-do-not-exist",
     "FACILITY-DO-NOT-EXIST": "facility-do-not-exist",

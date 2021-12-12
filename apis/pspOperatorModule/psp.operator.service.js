@@ -55,15 +55,19 @@ const createPspOperator = async ({
 
 const updatePspOperator = async (id, psp_data) => {
   let message;
-  const query = { _id: id };
-  const update = { ...psp_data };
-  const options = { upsert: false, new: true };
-  const psp = await Psp.findOneAndUpdate(query, update, options);
-  message = messages['PSP-OPERATOR-UPDATE-SUCCESS'];
-  if (psp) return { isSuccess: true, data: psp };
-
-  message = messages['PSP-OPERATOR-UPDATE-ERROR'];
-  return { isSuccess: false, message };
+  try {
+    const query = { _id: id };
+    const update = { ...psp_data };
+    const options = { upsert: false, new: true };
+    const psp = await Psp.findOneAndUpdate(query, update, options);
+    if (psp) {
+      message = messages['PSP-OPERATOR-UPDATE-SUCCESS'];
+      return { isSuccess: true, data: psp };
+    }
+  } catch (error) {
+    message = messages['PSP-OPERATOR-UPDATE-ERROR'];
+    return { isSuccess: false, message };
+  }
 };
 
 const deletePspOperator = async (id) => {

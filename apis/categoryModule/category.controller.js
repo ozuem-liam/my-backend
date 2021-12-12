@@ -35,9 +35,8 @@ const createCategory = async (request, response) => {
       return sendError({ response, errors });
     }
 
-    const { facility_id, category } = request.body;
+    const { category } = request.body;
     const { isSuccess, message, data } = await categoryService.createCategory({
-      facility_id,
       category,
     });
     if (isSuccess) {

@@ -6,6 +6,7 @@ const { sendSuccess, sendError } = require('../../helpers/response.format');
 
 const PER_PAGE = 10;
 const DEFAULT_PAGE = 1;
+const INVOICE_TYPE = 'PspOperator';
 
 const getInvoice = async (request, response) => {
   query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt();
@@ -15,10 +16,11 @@ const getInvoice = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { per_page = PER_PAGE, page = DEFAULT_PAGE } = filter;
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE, type = INVOICE_TYPE } = filter;
   const { isSuccess, data, message } = await invoiceService.getInvoice({
     per_page,
     page,
+    type,
   });
   if (isSuccess) {
     return sendSuccess({ response, data, message });
@@ -27,18 +29,47 @@ const getInvoice = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-const createInvoice = async (request, response) => {
+const createFacilityInvoice = async (request, response) => {
   try {
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
       return sendError({ response, errors });
     }
 
-    const { facility_id, month, year } = request.body;
-    const { isSuccess, message, data } = await invoiceService.createInvoice({
+    const { facility_id, month, year, type } = request.body;
+    const { isSuccess, message, data } = await invoiceService.createFacilityInvoice({
       facility_id,
       month,
       year,
+      type,
+    });
+    if (isSuccess) {
+      return sendSuccess({
+        response,
+        message,
+        data,
+      });
+    } else {
+      return sendError({ response, message });
+    }
+  } catch (error) {
+    return sendError({ response, error });
+  }
+};
+
+const createPspOperatorInvoice = async (request, response) => {
+  try {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return sendError({ response, errors });
+    }
+
+    const { psp_id, month, year, type } = request.body;
+    const { isSuccess, message, data } = await invoiceService.createPspOperatorInvoice({
+      psp_id,
+      month,
+      year,
+      type,
     });
     if (isSuccess) {
       return sendSuccess({
@@ -63,7 +94,7 @@ const updateInvoice = async (request, response) => {
   const { month, year } = request.body;
   const { isSuccess, data, message } = await invoiceService.updateInvoice({
     id,
-    month, 
+    month,
     year,
   });
   if (isSuccess) {
@@ -81,4 +112,10 @@ const deleteInvoice = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-module.exports = { createInvoice, deleteInvoice, getInvoice, updateInvoice };
+module.exports = {
+  createFacilityInvoice,
+  createPspOperatorInvoice,
+  deleteInvoice,
+  getInvoice,
+  updateInvoice,
+};

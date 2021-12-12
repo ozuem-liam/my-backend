@@ -91,7 +91,7 @@ const updateFacility = async (request, response) => {
     number_of_bins,
     service_charge,
     status,
-    external_id,
+    category,
     servicing_psp,
   } = request.body;
   const { isSuccess, data, message } = await facilityService.updateFacility({
@@ -108,7 +108,7 @@ const updateFacility = async (request, response) => {
     number_of_bins,
     service_charge,
     status,
-    external_id,
+    category,
     servicing_psp,
     facility_front_image: urls[0].secure_url,
     facility_waste_image: urls[1].secure_url,

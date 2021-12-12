@@ -1,5 +1,5 @@
-const faker = require('faker'),
-  messages = require('../../translation/messages.json');
+const faker = require('faker');
+const messages = require('../../translation/messages.json');
 
 const password = 'RandomP330hs';
 
