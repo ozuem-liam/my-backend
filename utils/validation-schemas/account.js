@@ -41,7 +41,6 @@ const registrationSchema = [
   body('password')
     .notEmpty()
     .withMessage({ 'any.required': messages['ACT-PASSWORD-REQUIRED'] })
-    .bail()
     .isLength({ min: 8 })
     .withMessage({ 'string.pattern.base': messages['ACT-PASSWORD-TOO-SHORT'] })
     .custom(async (value, { req, loc, path }) => {

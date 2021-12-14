@@ -75,7 +75,7 @@
     "NO-CATEGORY-FOUND": "no-category-found",
     "CATEGORY-CREATED-SUCCESS": "category-created-successfully",
     "CATEGORY-UPDATE-SUCCESS": "category-updated-successfully",
-    "'CATEGORY-UPDATE-ERROR": "category-updated-error",
+    "CATEGORY-UPDATE-ERROR": "category-updated-error",
     "CATEGORY-DELETE-SUCCESS": "category-deleted-successfully",
     "CATEGORY-DELETE-ERROR": "category-deleted-error",
     "CATEGORY-EXIST": "category-exist",

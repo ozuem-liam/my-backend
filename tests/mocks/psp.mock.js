@@ -9,7 +9,6 @@ const createPspMockRequest = {
     ceo_name: faker.name.firstName(),
     location: faker.company.companyName(),
     psp_operator_phone_number: faker.phone.phoneNumber(),
-    address: faker.company.companyName(),
     district: faker.company.companyName(),
     slots: faker.company.companyName(),
     bank_name: faker.company.companyName(),

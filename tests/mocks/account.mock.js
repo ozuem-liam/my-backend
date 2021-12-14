@@ -24,7 +24,6 @@ const registrationMockRequest = {
   createAccountResponse = {
     account: registrationMockRequest,
     isSuccess: true,
-    destination: 'dashboard',
     message: messages['ACT-LOGIN-SUCCESS'],
   };
 module.exports = { loginMockRequest, registrationMockRequest, createAccountResponse };

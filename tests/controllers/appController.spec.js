@@ -1,8 +1,8 @@
-const httpMocks = require('node-mocks-http'),
-  faker = require('faker'),
-  assert = require('assert');
-const appController = require('../../controllers/appController'),
-  HttpStatusCode = require('../../models/HttpStatusCode');
+const httpMocks = require('node-mocks-http');
+const faker = require('faker');
+const assert = require('assert');
+const appController = require('../../helpers/response.format');
+const HttpStatusCode = require('../../models/HttpStatusCode');
 
 describe('AppController', () => {
   let response = {};
