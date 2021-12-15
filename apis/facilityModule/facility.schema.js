@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const facility = {
   facility_name: {
     type: String,
-    required: true,
     trim: true,
   },
   facility_email_1: {
@@ -37,13 +36,10 @@ const facility = {
   },
   address: {
     type: String,
-    required: true,
-    maxlength: 15,
     trim: true,
   },
   charge_per_trip: {
     type: Number,
-    maxlength: 15,
     trim: true,
   },
   number_of_trips: {
@@ -63,13 +59,13 @@ const facility = {
   },
   status: {
     type: [String],
-    enum: ['Active', 'Completed'],
+    enum: ['Approved', 'Completed', 'Incomplete'],
     default: 'Completed',
   },
   billing_type: {
     type: [String],
-    enum: ['PER TRIP', 'MONTHLY'],
-    default: 'PER TRIP',
+    enum: ['PER_TRIP', 'MONTHLY'],
+    default: 'PER_TRIP',
   },
   front_image_cloudinary_id: {
     type: String,
@@ -96,6 +92,9 @@ const facility = {
       ref: 'Invoice',
     },
   ],
+  psp_id: {
+    type: String,
+  },
   timestamps: {
     type: Date,
     default: Date.now,

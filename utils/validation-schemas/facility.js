@@ -21,7 +21,9 @@ const FacilityUpdateSchema = [
     .notEmpty()
     .withMessage({ 'any.required': messages['FACILITY-LOCATION-REQUIRED'] }),
   body('address').notEmpty().withMessage({ 'any.required': messages['FACILITY-ADDRESS-REQUIRED'] }),
-  body('category').notEmpty().withMessage({ 'any.required': messages['FACILITY-CATEGORY-REQUIRED'] }),
+  body('category')
+    .notEmpty()
+    .withMessage({ 'any.required': messages['FACILITY-CATEGORY-REQUIRED'] }),
   body('charge_per_trip')
     .notEmpty()
     .withMessage({ 'any.required': messages['FACILITY-CHARGE-PER-TRIP-REQUIRED'] }),
@@ -37,7 +39,7 @@ const FacilityUpdateSchema = [
   body('status')
     .notEmpty()
     .withMessage({ 'any.required': messages['FACILITY-STATUS-REQUIRED'] })
-    .isIn(['Active', 'Completed'])
+    .isIn(['Approved', 'Completed', 'Incomplete'])
     .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
   body('servicing_psp')
     .notEmpty()
@@ -53,8 +55,8 @@ const FacilityRegistrationSchema = [
     .notEmpty()
     .withMessage({ 'any.required': messages['FACILITY-SERVICE-CHARGE-REQUIRED'] }),
   body('billing_type')
-    .isIn(['PER TRIP', 'MONTHLY'])
-    .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
+    .isIn(['PER_TRIP', 'MONTHLY'])
+    .withMessage({ 'any.required': messages['FACILITY-BILLING-TYPE-DO-NOT-EXIST'] }),
 ];
 
 module.exports = { FacilityRegistrationSchema, FacilityUpdateSchema };

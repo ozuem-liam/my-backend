@@ -3,23 +3,34 @@ const router = express.Router();
 const verifyToken = require('../../middleware/auth');
 const { FacilityRegistrationSchema, FacilityUpdateSchema  } = require('../../utils/validation-schemas/facility');
 const { facility } = require('../../helpers/controller.repository');
-const upload = require('../../helpers/upload.service');
+
+router.get('/billing', verifyToken, facility.getAllFacilityByBillingType);
+
+router.get('/status', verifyToken, facility.getAllFacilityByStatus);
 
 router.get('/', verifyToken, facility.getFacility);
+
 router.post(
   '/',
   verifyToken,
-  upload.array('image'),
   FacilityRegistrationSchema,
   facility.createFacility
 );
+
 router.post(
   '/update/:id',
   verifyToken,
-  upload.array('image'),
-  FacilityUpdateSchema,
+  FacilityRegistrationSchema,
   facility.updateFacility
 );
+
+router.post(
+  '/enumerated',
+  verifyToken,
+  FacilityUpdateSchema,
+  facility.createEnumeratedFacility
+);
+
 router.delete('/delete/:id', verifyToken, facility.deleteFacility);
 
 module.exports = router;

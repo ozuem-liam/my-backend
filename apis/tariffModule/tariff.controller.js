@@ -66,16 +66,17 @@ const updateTariff = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { tariff_charge, tariff_charge_code, duration, amount } = request.body;
-  const file = await cloudinary.uploader.upload(request.file.path);
+  const { tariff_charge, tariff_charge_code, duration, amount, tariff_image, cloudinary_id } =
+    request.body;
+
   const { isSuccess, data, message } = await tariffService.updateTariff({
     id,
     tariff_charge,
     tariff_charge_code,
     duration,
     amount,
-    tariff_image: file.secure_url,
-    cloudinary_id: file.public_id,
+    tariff_image,
+    cloudinary_id,
   });
   if (isSuccess) {
     return sendSuccess({ response, data, message });

@@ -4,6 +4,7 @@ const tariffRoutes = require('../apis/tariffModule/tariff.route');
 const facilityRoutes = require('../apis/facilityModule/facility.route');
 const categoryRoutes = require('../apis/categoryModule/category.route');
 const invoiceRoutes = require('../apis/invoiceModule/invoice.route');
+const uploadRoutes = require('../apis/uploadModule/upload.route');
 
 module.exports = function (app) {
   app.use('/account', accountRoutes);
@@ -12,4 +13,5 @@ module.exports = function (app) {
   app.use('/facility', facilityRoutes);
   app.use('/category', categoryRoutes);
   app.use('/invoice', invoiceRoutes);
+  app.use('/image', uploadRoutes);
 };
