@@ -7,8 +7,18 @@ const { sendSuccess, sendError } = require('../../helpers/response.format');
 const PER_PAGE = 10;
 const DEFAULT_PAGE = 1;
 const DEFAULT_ID = 1;
-const DEFAULT_STATUS = "Approved";
-const DEFAULT_BILLING_TYPE = "PER_TRIP";
+const DEFAULT_STATUS = 'Approved';
+const DEFAULT_BILLING_TYPE = 'PER_TRIP';
+
+const toggleStatus = async (request, response) => {
+  const { id } = request.params;
+  const { isSuccess, data, message } = await facilityService.toggleStatus(id);
+  if (isSuccess) {
+    return sendSuccess({ response, data });
+  }
+
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
 
 const getAllFacilityByBillingType = async (request, response) => {
   query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt();
@@ -18,7 +28,12 @@ const getAllFacilityByBillingType = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { per_page = PER_PAGE, page = DEFAULT_PAGE, psp_id = DEFAULT_ID, billing_type = DEFAULT_BILLING_TYPE } = filter;
+  const {
+    per_page = PER_PAGE,
+    page = DEFAULT_PAGE,
+    psp_id = DEFAULT_ID,
+    billing_type = DEFAULT_BILLING_TYPE,
+  } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByBillingType({
     per_page,
     page,
@@ -40,12 +55,17 @@ const getAllFacilityByStatus = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { per_page = PER_PAGE, page = DEFAULT_PAGE, psp_id = DEFAULT_ID, status = DEFAULT_STATUS } = filter;
+  const {
+    per_page = PER_PAGE,
+    page = DEFAULT_PAGE,
+    psp_id = DEFAULT_ID,
+    status = DEFAULT_STATUS,
+  } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByStatus({
     per_page,
     page,
     psp_id,
-    status
+    status,
   });
   if (isSuccess) {
     return sendSuccess({ response, data });
@@ -66,7 +86,7 @@ const getFacility = async (request, response) => {
   const { isSuccess, data, message } = await facilityService.getFacility({
     per_page,
     page,
-    psp_id
+    psp_id,
   });
   if (isSuccess) {
     return sendSuccess({ response, data });
@@ -189,5 +209,6 @@ module.exports = {
   getFacility,
   updateFacility,
   getAllFacilityByStatus,
-  getAllFacilityByBillingType
+  getAllFacilityByBillingType,
+  toggleStatus,
 };

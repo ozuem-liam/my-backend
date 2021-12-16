@@ -3,12 +3,33 @@ const { Psp } = require('../../apis/pspOperatorModule/psp.operator.model');
 const messages = require('../../translation/messages.json');
 const cloudinary = require('../../helpers/cloudinary.service');
 
+const toggleStatus = async (id) => {
+  try {
+    let status;
+    const facilities = await Facility.findById(id);
+    if (facilities.status == 'Completed') {
+      facilities.status = 'Approved';
+      status = facilities.status;
+      facilities.save();
+      return { isSuccess: true, data: status };
+    } else if (facilities.status == 'Approved') {
+      facilities.status = 'Completed';
+      status = facilities.status;
+      facilities.save();
+      return { isSuccess: true, data: status };
+    }
+  } catch (error) {
+    const message = messages['NO-FACILITY-FOUND'];
+    return { isSuccess: false, message };
+  }
+};
+
 const getAllFacilityByBillingType = async ({ per_page, page, psp_id, billing_type }) => {
   try {
     const offset = (page - 1) * per_page;
     const facilities = await Facility.find({ psp_id, billing_type }).skip(offset).limit(per_page);
     if (facilities) {
-      return { isSuccess: true, data: facilities };
+      return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
   } catch (error) {
     const message = messages['NO-FACILITY-FOUND'];
@@ -21,7 +42,7 @@ const getAllFacilityByStatus = async ({ per_page, page, psp_id, status }) => {
     const offset = (page - 1) * per_page;
     const facilities = await Facility.find({ psp_id, status }).skip(offset).limit(per_page);
     if (facilities) {
-      return { isSuccess: true, data: facilities };
+      return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
   } catch (error) {
     const message = messages['NO-FACILITY-FOUND'];
@@ -34,7 +55,7 @@ const getFacility = async ({ per_page, page, psp_id }) => {
     const offset = (page - 1) * per_page;
     const facilities = await Facility.find({ psp_id }).skip(offset).limit(per_page);
     if (facilities) {
-      return { isSuccess: true, data: facilities };
+      return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
   } catch (error) {
     const message = messages['NO-FACILITY-FOUND'];
@@ -173,4 +194,5 @@ module.exports = {
   createEnumeratedFacility,
   getAllFacilityByStatus,
   getAllFacilityByBillingType,
+  toggleStatus,
 };
