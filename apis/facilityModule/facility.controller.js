@@ -28,11 +28,7 @@ const getAllFacilityByBillingType = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const {
-    per_page = PER_PAGE,
-    page = DEFAULT_PAGE,
-    billing_type = DEFAULT_BILLING_TYPE,
-  } = filter;
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE, billing_type = DEFAULT_BILLING_TYPE } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByBillingType({
     per_page,
     page,
@@ -53,11 +49,7 @@ const getAllFacilityByStatus = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const {
-    per_page = PER_PAGE,
-    page = DEFAULT_PAGE,
-    status = DEFAULT_STATUS,
-  } = filter;
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE, status = DEFAULT_STATUS } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByStatus({
     per_page,
     page,
@@ -78,10 +70,11 @@ const getFacility = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { per_page = PER_PAGE, page = DEFAULT_PAGE } = filter;
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE, psp_id = DEFAULT_ID } = filter;
   const { isSuccess, data, message } = await facilityService.getFacility({
     per_page,
     page,
+    psp_id,
   });
   if (isSuccess) {
     return sendSuccess({ response, data });
