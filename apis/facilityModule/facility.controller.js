@@ -31,13 +31,11 @@ const getAllFacilityByBillingType = async (request, response) => {
   const {
     per_page = PER_PAGE,
     page = DEFAULT_PAGE,
-    psp_id = DEFAULT_ID,
     billing_type = DEFAULT_BILLING_TYPE,
   } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByBillingType({
     per_page,
     page,
-    psp_id,
     billing_type,
   });
   if (isSuccess) {
@@ -58,13 +56,11 @@ const getAllFacilityByStatus = async (request, response) => {
   const {
     per_page = PER_PAGE,
     page = DEFAULT_PAGE,
-    psp_id = DEFAULT_ID,
     status = DEFAULT_STATUS,
   } = filter;
   const { isSuccess, data, message } = await facilityService.getAllFacilityByStatus({
     per_page,
     page,
-    psp_id,
     status,
   });
   if (isSuccess) {
@@ -82,11 +78,10 @@ const getFacility = async (request, response) => {
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  const { per_page = PER_PAGE, page = DEFAULT_PAGE, psp_id = DEFAULT_ID } = filter;
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE } = filter;
   const { isSuccess, data, message } = await facilityService.getFacility({
     per_page,
     page,
-    psp_id,
   });
   if (isSuccess) {
     return sendSuccess({ response, data });
@@ -166,6 +161,7 @@ const createEnumeratedFacility = async (request, response) => {
     front_image_cloudinary_id,
     waste_image_cloudinary_id,
   } = request.body;
+  const payable = Math.abs(0.25 * service_charge);
   const { isSuccess, data, message } = await facilityService.createEnumeratedFacility({
     id,
     facility_name,
@@ -179,6 +175,7 @@ const createEnumeratedFacility = async (request, response) => {
     number_of_trips,
     number_of_bins,
     service_charge,
+    payable,
     status,
     category,
     servicing_psp,

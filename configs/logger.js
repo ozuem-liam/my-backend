@@ -1,5 +1,5 @@
-const { createLogger, transports, format } = require('winston');
-const config = require('./config');
+const { createLogger, transports, format, config } = require('winston');
+const configDB = require('./config');
 require('winston-mongodb');
 
 const logger = createLogger({
@@ -10,10 +10,10 @@ const logger = createLogger({
       format: format.combine(format.timestamp(), format.json()),
     }),
     new transports.MongoDB({
-      level: 'error',
-      db: config.database.endPoint,
+      level: config.syslog.levels,
+      db: configDB.database.endPoint,
       options: { useUnifiedTopology: true },
-      collection: 'gate',
+      collection: 'audit',
       format: format.combine(format.timestamp(), format.json()),
     }),
   ],

@@ -3,17 +3,20 @@ const { Psp } = require('../../apis/pspOperatorModule/psp.operator.model');
 const messages = require('../../translation/messages.json');
 const cloudinary = require('../../helpers/cloudinary.service');
 
+const Approved = 'Approved';
+const Completed = 'Completed';
+
 const toggleStatus = async (id) => {
   try {
     let status;
     const facilities = await Facility.findById(id);
-    if (facilities.status == 'Completed') {
-      facilities.status = 'Approved';
+    if (facilities.status == Completed) {
+      facilities.status = Approved;
       status = facilities.status;
       facilities.save();
       return { isSuccess: true, data: status };
-    } else if (facilities.status == 'Approved') {
-      facilities.status = 'Completed';
+    } else if (facilities.status == Approved) {
+      facilities.status = Completed;
       status = facilities.status;
       facilities.save();
       return { isSuccess: true, data: status };
@@ -24,10 +27,10 @@ const toggleStatus = async (id) => {
   }
 };
 
-const getAllFacilityByBillingType = async ({ per_page, page, psp_id, billing_type }) => {
+const getAllFacilityByBillingType = async ({ per_page, page, billing_type }) => {
   try {
     const offset = (page - 1) * per_page;
-    const facilities = await Facility.find({ psp_id, billing_type }).skip(offset).limit(per_page);
+    const facilities = await Facility.find({ billing_type }).skip(offset).limit(per_page);
     if (facilities) {
       return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
@@ -37,10 +40,10 @@ const getAllFacilityByBillingType = async ({ per_page, page, psp_id, billing_typ
   }
 };
 
-const getAllFacilityByStatus = async ({ per_page, page, psp_id, status }) => {
+const getAllFacilityByStatus = async ({ per_page, page, status }) => {
   try {
     const offset = (page - 1) * per_page;
-    const facilities = await Facility.find({ psp_id, status }).skip(offset).limit(per_page);
+    const facilities = await Facility.find({ status }).skip(offset).limit(per_page);
     if (facilities) {
       return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
@@ -127,6 +130,7 @@ const createEnumeratedFacility = async ({
   number_of_trips,
   number_of_bins,
   service_charge,
+  payable,
   status,
   category,
   servicing_psp,
@@ -150,6 +154,7 @@ const createEnumeratedFacility = async ({
       number_of_trips,
       number_of_bins,
       service_charge,
+      payable,
       status,
       category,
       servicing_psp,

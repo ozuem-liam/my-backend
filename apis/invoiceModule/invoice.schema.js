@@ -24,13 +24,25 @@ const invoice = {
     type: [String],
     required: true,
   },
-  type: {
-    type: [String],
-    enum: ['Psp', 'Facility'],
-  },
-  invoice_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'Facility',
+  details: {
+    invoice_ref: {
+      type: String,
+    },
+    status: {
+      type: [String],
+      enum: ['Not Paid', 'Partially Paid', 'Paid'],
+    },
+    type: {
+      type: [String],
+      enum: ['Psp', 'Facility'],
+    },
+    invoice_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Facility',
+    },
+    amount: {
+      type: Number,
+    }
   },
   timestamps: {
     type: Date,

@@ -54,7 +54,10 @@ const facility = {
   },
   service_charge: {
     type: Number,
-    maxlength: 15,
+    trim: true,
+  },
+  payable: {
+    type: Number,
     trim: true,
   },
   status: {

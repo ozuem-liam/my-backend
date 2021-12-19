@@ -22,9 +22,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/", (request, response) => {
-  response.send("WELCOME");
-})
+app.get('/', (request, response) => {
+  response.send('WELCOME');
+});
 
 //Route Middleware
 require('./helpers/routes')(app);
