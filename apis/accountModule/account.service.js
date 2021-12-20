@@ -89,7 +89,7 @@ const changePassword = async ({ email, password, new_password }) => {
 
 const getAllUsers = async ({ per_page, page, region }) => {
   const offset = (page - 1) * per_page;
-  const accounts = await Account.find({ region }, { "first_name": 1, "last_name": 2 }).skip(offset).limit(per_page);
+  const accounts = await Account.find({ region }, { "first_name": 1, "last_name": 1 }).skip(offset).limit(per_page);
   if (accounts) return { isSuccess: true, data: accounts };
   const message = messages['NO-PSP-OPERATOR-FOUND'];
   return { isSuccess: false, message };

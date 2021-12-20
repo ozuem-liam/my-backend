@@ -76,6 +76,12 @@ const account = {
   last_login: {
     type: Date,
   },
+  tariffs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tariff',
+    },
+  ],
   timestamps: {
     immutable: true,
     type: Date,

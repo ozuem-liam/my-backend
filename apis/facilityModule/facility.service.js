@@ -77,8 +77,6 @@ const createFacility = async ({ psp_id, facility_name, address, service_charge, 
       billing_type,
     });
     if (facility) {
-      facility.facilities = psp_id;
-      facility.save();
       const psp = await Psp.findById(psp_id);
       psp.facilities.push(facility);
       psp.save();

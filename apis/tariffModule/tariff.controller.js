@@ -35,16 +35,15 @@ const createTariff = async (request, response) => {
       return sendError({ response, errors });
     }
 
-    const file = await cloudinary.uploader.upload(request.file.path);
-
-    const { tariff_charge, tariff_charge_code, duration, amount } = request.body;
+    const { psp_id, tariff_charge, tariff_charge_code, duration, amount, tariff_image, cloudinary_id } = request.body;
     const { isSuccess, message, data } = await tariffService.createTariff({
+      psp_id,
       tariff_charge,
       tariff_charge_code,
       duration,
       amount,
-      tariff_image: file.secure_url,
-      cloudinary_id: file.public_id,
+      tariff_image,
+      cloudinary_id,
     });
     if (isSuccess) {
       return sendSuccess({

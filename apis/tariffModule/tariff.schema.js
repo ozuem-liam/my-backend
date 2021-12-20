@@ -33,9 +33,9 @@ const tariff = {
     type: String,
     required: false,
   },
-  tariff_id: {
+  account_id: {
     type: Schema.Types.ObjectId,
-    ref: 'Facility',
+    ref: 'Account',
   },
   timestamps: {
     type: Date,
