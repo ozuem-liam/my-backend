@@ -3,7 +3,7 @@ const express = require('express');
 const config = require('./configs/config');
 const connectDB = require('./database/Database');
 const expressSession = require('express-session');
-const logger = require('./configs/logger');
+const logger = require('./logger/index');
 const cors = require('cors');
 
 connectDB();
