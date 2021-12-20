@@ -133,8 +133,6 @@ const createEnumeratedFacility = async ({
   psp_id,
   facility_front_image,
   facility_waste_image,
-  front_image_cloudinary_id,
-  waste_image_cloudinary_id,
 }) => {
   let message;
   try {
@@ -156,8 +154,6 @@ const createEnumeratedFacility = async ({
       psp_id,
       facility_front_image,
       facility_waste_image,
-      front_image_cloudinary_id,
-      waste_image_cloudinary_id,
     });
     if (facility) {
       const psp = await Psp.findById(psp_id);
@@ -177,15 +173,14 @@ const createEnumeratedFacility = async ({
 
 const deleteFacility = async (id) => {
   let message;
-  const facility = await Facility.findById(id);
-  await cloudinary.uploader.destroy(facility.front_image_cloudinary_id);
-  await cloudinary.uploader.destroy(facility.waste_image_cloudinary_id);
-  await facility.remove();
-  message = messages['FACILITY-DELETE-SUCCESS'];
-  if (facility) return { isSuccess: true, facility, message };
-
-  message = messages['FACLITY-DELETE-ERROR'];
-  return { isSuccess: false, message };
+  try {
+    await Facility.deleteOne({ id });
+    message = messages['FACILITY-DELETE-SUCCESS'];
+    return { isSuccess: true, message };
+  } catch (error) {
+    message = messages['FACLITY-DELETE-ERROR'];
+    return { isSuccess: false, message };
+  }
 };
 
 module.exports = {

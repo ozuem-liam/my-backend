@@ -26,7 +26,6 @@ const createTariff = async ({
   duration,
   amount,
   tariff_image,
-  cloudinary_id,
 }) => {
   try {
     let message;
@@ -37,7 +36,6 @@ const createTariff = async ({
       duration,
       amount,
       tariff_image,
-      cloudinary_id,
     });
     if (tariff) {
       const account = await Account.findById(account_id);
@@ -80,11 +78,9 @@ const updateTariff = async ({
 const deleteTariff = async (id) => {
   let message;
   try {
-    const tariff = await Tariff.findById(id);
-    await cloudinary.uploader.destroy(tariff.cloudinary_id);
-    await tariff.remove();
+    await Tariff.deleteOne({id});
     message = messages['TARIFF-DELETE-SUCCESS'];
-    if (tariff) return { isSuccess: true, tariff, message };
+    return { isSuccess: true, message };
   } catch (error) {
     message = messages['TARIFF-DELETE-ERROR'];
     return { isSuccess: false, message };

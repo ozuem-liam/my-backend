@@ -70,14 +70,6 @@ const facility = {
     enum: ['PER_TRIP', 'MONTHLY'],
     default: 'PER_TRIP',
   },
-  front_image_cloudinary_id: {
-    type: String,
-    required: false,
-  },
-  waste_image_cloudinary_id: {
-    type: String,
-    required: false,
-  },
   facility_waste_image: {
     type: String,
   },

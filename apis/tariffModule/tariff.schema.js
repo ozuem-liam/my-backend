@@ -29,10 +29,6 @@ const tariff = {
     required: true,
     trim: true,
   },
-  cloudinary_id: {
-    type: String,
-    required: false,
-  },
   account_id: {
     type: Schema.Types.ObjectId,
     ref: 'Account',

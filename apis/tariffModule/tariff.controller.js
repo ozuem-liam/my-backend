@@ -124,9 +124,9 @@ const updateTariff = async (request, response) => {
 
 const deleteTariff = async (request, response) => {
   const { id } = request.params;
-  const { isSuccess, message, tariff } = await tariffService.deleteTariff(id);
+  const { isSuccess, message } = await tariffService.deleteTariff(id);
   if (isSuccess) {
-    return sendSuccess({ response, message, data: { tariff } });
+    return sendSuccess({ response, message });
   }
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };

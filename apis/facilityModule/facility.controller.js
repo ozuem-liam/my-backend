@@ -150,8 +150,6 @@ const createEnumeratedFacility = async (request, response) => {
     psp_id,
     facility_front_image,
     facility_waste_image,
-    front_image_cloudinary_id,
-    waste_image_cloudinary_id,
   } = request.body;
   const payable = Math.abs(0.25 * service_charge);
   const { isSuccess, data, message } = await facilityService.createEnumeratedFacility({
@@ -172,8 +170,6 @@ const createEnumeratedFacility = async (request, response) => {
     psp_id,
     facility_front_image,
     facility_waste_image,
-    front_image_cloudinary_id,
-    waste_image_cloudinary_id,
   });
   if (isSuccess) {
     return sendSuccess({ response, data, message });
@@ -183,9 +179,9 @@ const createEnumeratedFacility = async (request, response) => {
 
 const deleteFacility = async (request, response) => {
   const { id } = request.params;
-  const { isSuccess, message, facility } = await facilityService.deleteFacility(id);
+  const { isSuccess, message} = await facilityService.deleteFacility(id);
   if (isSuccess) {
-    return sendSuccess({ response, message, data: { facility } });
+    return sendSuccess({ response, message });
   }
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
