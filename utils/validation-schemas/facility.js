@@ -41,7 +41,7 @@ const FacilityUpdateSchema = [
     .withMessage({ 'any.required': messages['FACILITY-STATUS-REQUIRED'] })
     .isIn(['Approved', 'Completed', 'Incomplete'])
     .withMessage({ 'any.required': messages['FACILITY-STATUS-DO-NOT-EXIST'] }),
-  body('servicing_psp')
+  body('psp_id')
     .notEmpty()
     .withMessage({ 'any.required': messages['FACILITY-SERVICING-PSP-REQUIRED'] }),
 ];

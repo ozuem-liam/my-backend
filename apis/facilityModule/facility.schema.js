@@ -78,10 +78,6 @@ const facility = {
     type: String,
     required: false,
   },
-  servicing_psp: {
-    type: String,
-    trim: true,
-  },
   facility_waste_image: {
     type: String,
   },

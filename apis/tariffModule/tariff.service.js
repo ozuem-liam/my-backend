@@ -3,16 +3,16 @@ const { Account } = require('../accountModule/account.model');
 const cloudinary = require('../../helpers/cloudinary.service');
 const messages = require('../../translation/messages.json');
 
-const getTariff = async ({ per_page, page }) => {
+const getTariff = async ({ per_page, page, account_id, timestamp }) => {
   const offset = (page - 1) * per_page;
-  const tariffs = await Tariff.find().skip(offset).limit(per_page);
+  const tariffs = await Tariff.find({ account_id, timestamp }).skip(offset).limit(per_page);
   if (tariffs) return { isSuccess: true, data: tariffs };
   const message = messages['NO-TARIFF-FOUND'];
   return { isSuccess: false, message };
 };
 
 const createTariff = async ({
-  psp_id,
+  account_id,
   tariff_charge,
   tariff_charge_code,
   duration,
@@ -23,7 +23,7 @@ const createTariff = async ({
   try {
     let message;
     const tariff = await Tariff.create({
-      psp_id,
+      account_id,
       tariff_charge,
       tariff_charge_code,
       duration,
@@ -32,7 +32,7 @@ const createTariff = async ({
       cloudinary_id,
     });
     if (tariff) {
-      const account = await Account.findById(psp_id);
+      const account = await Account.findById(account_id);
       account.tariffs.push(tariff);
       account.save();
       message = messages['TARIFF-CREATED-SUCCESS'];

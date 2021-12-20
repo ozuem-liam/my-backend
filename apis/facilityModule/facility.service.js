@@ -116,7 +116,6 @@ const updateFacility = async ({ id, facility_name, address, service_charge, bill
 };
 
 const createEnumeratedFacility = async ({
-  id,
   facility_name,
   facility_email_1,
   facility_email_2,
@@ -131,7 +130,7 @@ const createEnumeratedFacility = async ({
   payable,
   status,
   category,
-  servicing_psp,
+  psp_id,
   facility_front_image,
   facility_waste_image,
   front_image_cloudinary_id,
@@ -139,8 +138,7 @@ const createEnumeratedFacility = async ({
 }) => {
   let message;
   try {
-    const query = { _id: id };
-    const update = {
+    const facility = await Facility.create({
       facility_name,
       facility_email_1,
       facility_email_2,
@@ -155,15 +153,16 @@ const createEnumeratedFacility = async ({
       payable,
       status,
       category,
-      servicing_psp,
+      psp_id,
       facility_front_image,
       facility_waste_image,
       front_image_cloudinary_id,
       waste_image_cloudinary_id,
-    };
-    const options = { upsert: false, new: true };
-    const facility = await Facility.findOneAndUpdate(query, update, options);
+    });
     if (facility) {
+      const psp = await Psp.findById(psp_id);
+      psp.facilities.push(facility);
+      psp.save();
       message = messages['FACILITY-UPDATE-SUCCESS'];
       return { isSuccess: true, data: facility, message };
     } else {

@@ -134,7 +134,6 @@ const createEnumeratedFacility = async (request, response) => {
     return sendError({ response, errors });
   }
   const {
-    id,
     facility_name,
     facility_email_1,
     facility_email_2,
@@ -148,7 +147,7 @@ const createEnumeratedFacility = async (request, response) => {
     service_charge,
     status,
     category,
-    servicing_psp,
+    psp_id,
     facility_front_image,
     facility_waste_image,
     front_image_cloudinary_id,
@@ -156,7 +155,6 @@ const createEnumeratedFacility = async (request, response) => {
   } = request.body;
   const payable = Math.abs(0.25 * service_charge);
   const { isSuccess, data, message } = await facilityService.createEnumeratedFacility({
-    id,
     facility_name,
     facility_email_1,
     facility_email_2,
@@ -171,7 +169,7 @@ const createEnumeratedFacility = async (request, response) => {
     payable,
     status,
     category,
-    servicing_psp,
+    psp_id,
     facility_front_image,
     facility_waste_image,
     front_image_cloudinary_id,
