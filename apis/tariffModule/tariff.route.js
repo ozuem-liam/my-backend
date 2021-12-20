@@ -7,6 +7,7 @@ const {
 const { tariff } = require('../../helpers/controller.repository');
 
 router.get('/', verifyToken, tariff.getTariff);
+router.get('/account', verifyToken, tariff.getTariffByUser);
 router.post('/', verifyToken, tariff.createTariff);
 router.post('/update/:id', verifyToken, tariff.updateTariff);
 router.delete('/delete/:id', verifyToken, tariff.deleteTariff);

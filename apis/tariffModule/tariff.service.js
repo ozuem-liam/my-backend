@@ -5,6 +5,14 @@ const messages = require('../../translation/messages.json');
 
 const getTariff = async ({ per_page, page, account_id, timestamp }) => {
   const offset = (page - 1) * per_page;
+  const tariffs = await Tariff.find({}).skip(offset).limit(per_page);
+  if (tariffs) return { isSuccess: true, data: tariffs };
+  const message = messages['NO-TARIFF-FOUND'];
+  return { isSuccess: false, message };
+};
+
+const getTariffByUser = async ({ per_page, page, account_id, timestamp }) => {
+  const offset = (page - 1) * per_page;
   const tariffs = await Tariff.find({ account_id, timestamp }).skip(offset).limit(per_page);
   if (tariffs) return { isSuccess: true, data: tariffs };
   const message = messages['NO-TARIFF-FOUND'];
@@ -83,4 +91,4 @@ const deleteTariff = async (id) => {
   }
 };
 
-module.exports = { createTariff, deleteTariff, getTariff, updateTariff };
+module.exports = { createTariff, deleteTariff, getTariff, getTariffByUser, updateTariff };

@@ -20,6 +20,29 @@ const getTariff = async (request, response) => {
   const {
     per_page = PER_PAGE,
     page = DEFAULT_PAGE,
+  } = filter;
+  const { isSuccess, data, message } = await tariffService.getTariff({
+    per_page,
+    page,
+  });
+  if (isSuccess) {
+    return sendSuccess({ response, data, message });
+  }
+
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
+const getTariffByUser = async (request, response) => {
+  query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt();
+  query('page', '"page" must be a int, not empty').notEmpty().isInt();
+  const errors = validationResult(request);
+  const filter = request.query;
+  if (!errors.isEmpty()) {
+    return sendError({ response, errors });
+  }
+  const {
+    per_page = PER_PAGE,
+    page = DEFAULT_PAGE,
     account_id = DEFAULT_ID,
     timestamp = { $lt: new Date(), $gt: new Date(DEFAULT_TIMESTAMP) },
   } = filter;
@@ -108,4 +131,4 @@ const deleteTariff = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-module.exports = { createTariff, deleteTariff, getTariff, updateTariff };
+module.exports = { createTariff, deleteTariff, getTariff, getTariffByUser, updateTariff };
