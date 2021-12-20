@@ -1,6 +1,11 @@
 const accountService = require('./account.service');
 const { validationResult } = require('express-validator');
 const { sendSuccess, sendError } = require('../../helpers/response.format');
+const { query } = require('express-validator');
+
+const PER_PAGE = 10;
+const DEFAULT_PAGE = 1;
+const DEFAULT_REGION = 'general';
 
 const loginUser = async (request, response) => {
   const data = request.body;
@@ -58,4 +63,27 @@ const changePassword = async (request, response) => {
   return sendError({ response, message });
 };
 
-module.exports = { loginUser, createAccount, changePassword, logoutUser };
+
+const getAllUsers = async (request, response) => {
+  query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt();
+  query('page', '"page" must be a int, not empty').notEmpty().isInt();
+  query('region', '"region" must be a string, not empty').notEmpty().toString();
+  const errors = validationResult(request);
+  const filter = request.query;
+  if (!errors.isEmpty()) {
+    return sendError({ response, errors });
+  }
+  const { per_page = PER_PAGE, page = DEFAULT_PAGE, region = DEFAULT_REGION } = filter;
+  const { isSuccess, data, message } = await accountService.getAllUsers({
+    per_page,
+    page,
+    region,
+  });
+  if (isSuccess) {
+    return sendSuccess({ response, data });
+  }
+
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
+module.exports = { loginUser, createAccount, changePassword, logoutUser, getAllUsers };
