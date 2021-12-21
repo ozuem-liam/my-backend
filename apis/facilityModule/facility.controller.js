@@ -83,6 +83,16 @@ const getFacility = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
+const getFacilityById = async (request, response) => {
+  const {id} = request.params;
+  const { isSuccess, data, message } = await facilityService.getFacilityById(id);
+  if (isSuccess) {
+    return sendSuccess({ response, data });
+  }
+
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
 const createFacility = async (request, response) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
@@ -179,7 +189,7 @@ const createEnumeratedFacility = async (request, response) => {
 
 const deleteFacility = async (request, response) => {
   const { id } = request.params;
-  const { isSuccess, message} = await facilityService.deleteFacility(id);
+  const { isSuccess, message } = await facilityService.deleteFacility(id);
   if (isSuccess) {
     return sendSuccess({ response, message });
   }
@@ -195,4 +205,5 @@ module.exports = {
   getAllFacilityByStatus,
   getAllFacilityByBillingType,
   toggleStatus,
+  getFacilityById,
 };

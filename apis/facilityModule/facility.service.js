@@ -35,6 +35,7 @@ const getAllFacilityByBillingType = async ({ per_page, page, billing_type }) => 
       return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
     }
   } catch (error) {
+    console.log(error);
     const message = messages['NO-FACILITY-FOUND'];
     return { isSuccess: false, message };
   }
@@ -59,6 +60,18 @@ const getFacility = async ({ per_page, page, psp_id }) => {
     const facilities = await Facility.find({ psp_id }).skip(offset).limit(per_page);
     if (facilities) {
       return { isSuccess: true, data: facilities.sort((a, b) => a - b) };
+    }
+  } catch (error) {
+    const message = messages['NO-FACILITY-FOUND'];
+    return { isSuccess: false, message };
+  }
+};
+
+const getFacilityById = async (id) => {
+  try {
+    const facility = await Facility.findById(id);
+    if (facility) {
+      return { isSuccess: true, data: facility };
     }
   } catch (error) {
     const message = messages['NO-FACILITY-FOUND'];
@@ -192,4 +205,5 @@ module.exports = {
   getAllFacilityByStatus,
   getAllFacilityByBillingType,
   toggleStatus,
+  getFacilityById,
 };
