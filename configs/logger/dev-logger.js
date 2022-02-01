@@ -1,6 +1,6 @@
 const { createLogger, transports, format } = require('winston');
 const { timestamp, printf, combine, json } = format;
-const configDB = require('../configs/config');
+const configDB = require('../config');
 require('winston-mongodb');
 
 const buildDevLogger = () => { 

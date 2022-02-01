@@ -79,6 +79,18 @@ const getFacilityById = async (id) => {
   }
 };
 
+const getCountOfAllFacilities = async ({ psp_id }) => {
+  try {
+    const facility_count = await Facility.find({ psp_id }).count();
+    if (facility_count) {
+      return { isSuccess: true, data: facility_count };
+    }
+  } catch (error) {
+    const message = messages['NO-FACILITY-FOUND'];
+    return { isSuccess: false, message };
+  }
+};
+
 const createFacility = async ({ psp_id, facility_name, address, service_charge, billing_type }) => {
   let message;
   try {
@@ -206,4 +218,5 @@ module.exports = {
   getAllFacilityByBillingType,
   toggleStatus,
   getFacilityById,
+  getCountOfAllFacilities,
 };

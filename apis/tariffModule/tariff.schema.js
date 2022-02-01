@@ -20,7 +20,7 @@ const tariff = {
     trim: true,
   },
   amount: {
-    type: String,
+    type: Number,
     required: true,
     trim: true,
   },

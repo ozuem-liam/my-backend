@@ -62,6 +62,7 @@ const getAllFacilityByStatus = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
+
 const getFacility = async (request, response) => {
   query('per_page', '"per_page" must be a int, not empty').notEmpty().isInt();
   query('page', '"page" must be a int, not empty').notEmpty().isInt();
@@ -79,13 +80,23 @@ const getFacility = async (request, response) => {
   if (isSuccess) {
     return sendSuccess({ response, data });
   }
-
+  
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
 const getFacilityById = async (request, response) => {
   const {id} = request.params;
   const { isSuccess, data, message } = await facilityService.getFacilityById(id);
+  if (isSuccess) {
+    return sendSuccess({ response, data });
+  }
+  
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
+const getCountOfAllFacilities = async (request, response) => {
+  const {psp_id} = request.query;
+  const { isSuccess, data, message } = await facilityService.getCountOfAllFacilities({ psp_id });
   if (isSuccess) {
     return sendSuccess({ response, data });
   }
@@ -206,4 +217,5 @@ module.exports = {
   getAllFacilityByBillingType,
   toggleStatus,
   getFacilityById,
+  getCountOfAllFacilities,
 };

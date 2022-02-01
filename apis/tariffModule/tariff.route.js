@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../../middleware/auth');
-const {
-  PspRegistrationSchema,
-} = require('../../utils/validation-schemas/psp');
+// const {
+//   PspRegistrationSchema,
+// } = require('../../utils/validation-schemas/psp');
 const { tariff } = require('../../helpers/controller.repository');
 
 router.get('/', verifyToken, tariff.getTariff);

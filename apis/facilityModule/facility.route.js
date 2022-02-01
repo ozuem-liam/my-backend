@@ -13,11 +13,15 @@ router.get('/billing', verifyToken, facility.getAllFacilityByBillingType);
 
 router.get('/status', verifyToken, facility.getAllFacilityByStatus);
 
+router.get('/count', verifyToken, facility.getCountOfAllFacilities);
+
 router.get('/', verifyToken, facility.getFacility);
 
 router.get('/:id', verifyToken, facility.getFacilityById);
 
+
 router.post('/', verifyToken, FacilityRegistrationSchema, facility.createFacility);
+
 
 router.post('/update/:id', verifyToken, FacilityRegistrationSchema, facility.updateFacility);
 

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const psp_operator = {
+  id: {
+    type: String,
+  },
   psp_operator_name: {
     type: String,
     required: true,

@@ -1,5 +1,7 @@
 const { Psp } = require('./psp.operator.model');
 const messages = require('../../translation/messages.json');
+const fs = require('fs');
+const lawma_id_prefix = 'LAWMA-PSP';
 
 const getPspOperators = async ({ per_page, page, region }) => {
   const offset = (page - 1) * per_page;
@@ -25,12 +27,16 @@ const createPspOperator = async ({
 }) => {
   try {
     let message;
+
     const exist = await Psp.exists({ psp_operator_email });
     if (exist) {
       message = messages['PSP-OPERATOR-EMAIL-EXIST'];
       return { isSuccess: false, message };
     }
+    const id_number = await generateId();
+ 
     const pspOperator = await Psp.create({
+      id: `${lawma_id_prefix}-${region[0].toUpperCase()}-${id_number}`,
       psp_operator_name,
       ceo_name,
       psp_operator_phone_number,
@@ -80,6 +86,19 @@ const deletePspOperator = async (id) => {
 
   message = messages['PSP-OPERATOR-DELETE-ERROR'];
   return { isSuccess: false, message };
+};
+
+// Generate PSP Lawma Id
+const generateId = async () => {
+  let newData;
+  const data = fs.readFileSync('readMe.txt', 'utf8');
+    newData = Math.abs(parseInt(data) + 1).toString();
+    fs.writeFileSync('readMe.txt', newData, (err) => {
+      if (err) {
+        return err;
+      }
+    });
+  return newData;
 };
 
 module.exports = { createPspOperator, deletePspOperator, getPspOperators, updatePspOperator };
