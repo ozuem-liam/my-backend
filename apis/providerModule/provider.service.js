@@ -8,6 +8,13 @@ const getProviders = async () => {
   return { isSuccess: false, message };
 };
 
+const getSortedProviders = async (array) => {
+  const providers = await Provider.find({_id: { $in: array }});
+  if (providers) return { isSuccess: true, data: providers };
+  const message = messages['NO-PROVIDER-FOUND'];
+  return { isSuccess: false, message };
+};
+
 const addAProvider = async ({ provider }) => {
   let message;
   try {
@@ -41,4 +48,4 @@ const deleteAProvider = async (id) => {
   }
 };
 
-module.exports = { getProviders, addAProvider, deleteAProvider };
+module.exports = { getProviders, addAProvider, deleteAProvider, getSortedProviders };

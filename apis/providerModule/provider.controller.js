@@ -3,12 +3,19 @@ const { validationResult } = require('express-validator');
 const HttpStatusCode = require('../../models/HttpStatusCode');
 const { sendSuccess, sendError } = require('../../helpers/response.format');
 
-const PER_PAGE = 10;
-const DEFAULT_PAGE = 1;
 
 const getProviders = async (request, response) => {
   const { id } = request.params;
   const { isSuccess, data, message } = await providerService.getProviders(id);
+  if (isSuccess) {
+    return sendSuccess({ response, data, message });
+  }
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
+const getSortedProviders = async (request, response) => {
+  const array = JSON.parse(request.query.array);
+  const { isSuccess, data, message } = await providerService.getSortedProviders(array);
   if (isSuccess) {
     return sendSuccess({ response, data, message });
   }
@@ -49,4 +56,4 @@ const deleteAProvider = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-module.exports = { addAProvider, deleteAProvider, getProviders };
+module.exports = { addAProvider, deleteAProvider, getProviders, getSortedProviders };
