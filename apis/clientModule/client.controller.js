@@ -31,11 +31,9 @@ const addClient = async (request, response) => {
 
 const getAllClients = async (request, response) => {
   const errors = validationResult(request);
-  const filter = request.query;
   if (!errors.isEmpty()) {
     return sendError({ response, errors });
   }
-  // const { per_page = PER_PAGE, page = DEFAULT_PAGE, region = DEFAULT_REGION } = filter;
   const { isSuccess, data, message } = await clientService.getAllClients({});
   if (isSuccess) {
     return sendSuccess({ response, data });
