@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const config = require('./configs/config');
 const connectDB = require('./database/Database');
-const expressSession = require('express-session');
 const logger = require('./configs/logger/index');
 const cors = require('cors');
 
@@ -11,7 +10,6 @@ connectDB();
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
-app.use(expressSession({ secret: 'max', saveUninitialized: false, resave: false }));
 
 const corsOptions = {
   origin: '*',

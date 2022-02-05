@@ -5,11 +5,7 @@ const config = {
     database: {
       endPoint: process.env.MONGO_URI,
     },
-    encryptionKey: process.env.ENCRYPTION_KEY,
     development: process.env.DEVELOPMENT,
-  
-    appKey: process.env.APP_KEY,
-    tokenLife: 1,
   };
   
   module.exports = config;

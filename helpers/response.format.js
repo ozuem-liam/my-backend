@@ -1,12 +1,12 @@
 const HttpStatusCode = require('../models/HttpStatusCode');
-const LMResponse = require('../models/LMResponse');
+const PResponse = require('../models/PResponse');
 
 const sendSuccess = ({ 
   response, 
   data = {}, 
   message = 'Request successful'
 }) => {
-  const resp = new LMResponse({ data, message });
+  const resp = new PResponse({ data, message });
   return response.status(HttpStatusCode.SUCCESS).send(resp);
 };
 
@@ -16,7 +16,7 @@ const sendError = ({
   message = 'Invalid requests',
   code = HttpStatusCode.INVALID_REQUEST,
 }) => {
-  const resp = new LMResponse({ data: {}, message, errors });
+  const resp = new PResponse({ data: {}, message, errors });
   return response.status(code).send(resp);
 };
 
