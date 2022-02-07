@@ -5,6 +5,7 @@ const { client } = require('../../helpers/controller.repository');
 
 router.post('/', clientRegistrationSchema, client.addClient);
 router.get('/', client.getAllClients);
+router.get('/:id', client.getAClient);
 router.post('/edit/:id', clientRegistrationSchema, client.editClientInfo);
 router.delete('/delete/:id', client.deleteAClient);
 

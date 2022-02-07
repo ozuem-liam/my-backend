@@ -36,6 +36,13 @@ const getAllClients = async () => {
   return { isSuccess: false, message };
 };
 
+const getAClient = async (id) => {
+  const client = await Client.findById(id);
+  if (client) return { isSuccess: true, data: client };
+  const message = messages['NO-PSP-OPERATOR-FOUND'];
+  return { isSuccess: false, message };
+};
+
 const editClientInfo = async (id, client_data) => {
   let message;
   try {
@@ -66,4 +73,4 @@ const deleteAClient = async (id) => {
   }
 };
 
-module.exports = { addClient, getAllClients, editClientInfo, deleteAClient };
+module.exports = { addClient, getAllClients, getAClient, editClientInfo, deleteAClient };

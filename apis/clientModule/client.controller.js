@@ -42,6 +42,21 @@ const getAllClients = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
+const getAClient = async (request, response) => {
+  const { id } = request.params;
+
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return sendError({ response, errors });
+  }
+  const { isSuccess, data, message } = await clientService.getAClient(id);
+  if (isSuccess) {
+    return sendSuccess({ response, data });
+  }
+
+  return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
+};
+
 const editClientInfo = async (request, response) => {
   const { id } = request.params;
   const errors = validationResult(request);
@@ -65,4 +80,4 @@ const deleteAClient = async (request, response) => {
   return sendError({ response, message, code: HttpStatusCode.SERVER_ERROR });
 };
 
-module.exports = { addClient, getAllClients, editClientInfo, deleteAClient };
+module.exports = { addClient, getAllClients, getAClient, editClientInfo, deleteAClient };
