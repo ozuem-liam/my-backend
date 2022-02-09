@@ -11,7 +11,7 @@ const clientRegistrationSchema = [
     .withMessage({ 'string.email': messages['CLIENT-EMAIL-INVALID'] }),
   body('phone')
     .notEmpty()
-    .withMessage({ 'any.required': messages['CLIENT-PHONE-NUMBER-REQUIRED'] }),
+    .withMessage({ 'any.required': messages['CLIENT-PHONE-REQUIRED'] }),
   body('providers')
     .notEmpty()
     .withMessage({ 'any.required': messages['CLIENT-PROVIDERS-REQUIRED'] }),

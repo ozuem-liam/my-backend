@@ -12,7 +12,7 @@ const addClient = async ({
     let message;
     const exist = await Client.exists({ email });
     if (exist) {
-      message = messages['ACT-EMAIL-EXIST'];
+      message = messages['CLIENT-EMAIL-EXIST'];
       return { isSuccess: false, message };
     }
     const client = await Client.create({
@@ -22,7 +22,7 @@ const addClient = async ({
       providers,
     });
     if (client) {
-      message = messages['ACT-LOGIN-SUCCESS'];
+      message = messages['CLIENT-ADDED-SUCCESS'];
       return { isSuccess: true, client, message };
     }
   } catch (error) {
@@ -46,7 +46,7 @@ const getAllClients = async () => {
       return { isSuccess: true, data: clients };
     }
   } catch (error) {
-    const message = messages['NO-PSP-OPERATOR-FOUND'];
+    const message = messages['NO-CLIENT-FOUND'];
     return { isSuccess: false, message }; 
   }
 };
@@ -54,7 +54,7 @@ const getAllClients = async () => {
 const getAClient = async (id) => {
   const client = await Client.findById(id);
   if (client) return { isSuccess: true, data: client };
-  const message = messages['NO-PSP-OPERATOR-FOUND'];
+  const message = messages['NO-CLIENT-FOUND'];
   return { isSuccess: false, message };
 };
 
@@ -66,11 +66,11 @@ const editClientInfo = async (id, client_data) => {
     const options = { upsert: false, new: true };
     const client = await Client.findOneAndUpdate(query, update, options);
     if (client) {
-      message = messages['CLIENT-OPERATOR-UPDATE-SUCCESS'];
+      message = messages['CLIENT-UPDATE-SUCCESS'];
       return { isSuccess: true, data: client };
     }
   } catch (error) {
-    message = messages['CLIENT-OPERATOR-UPDATE-ERROR'];
+    message = messages['CLIENT-UPDATE-ERROR'];
     return { isSuccess: false, message };
   }
 };

@@ -1,4 +1,4 @@
-class LMResponse {
+class PResponse {
     constructor({ data, errors = {}, message = '' }) {
       this.data = data;
       this.errors = errors;
@@ -6,4 +6,4 @@ class LMResponse {
     }
   }
   
-  module.exports = LMResponse;
+  module.exports = PResponse;

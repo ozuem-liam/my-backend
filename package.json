@@ -24,6 +24,8 @@
     "express": "^4.17.1",
     "express-validator": "^6.13.0",
     "mongoose": "^6.0.13",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0",
     "winston": "^3.3.3",
     "winston-mongodb": "^5.0.7"
   },
