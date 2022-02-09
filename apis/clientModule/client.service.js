@@ -1,4 +1,5 @@
 const { Client } = require('./client.model');
+const { Provider } = require('../providerModule/provider.model');
 const messages = require('../../translation/messages.json');
 
 const addClient = async ({
@@ -30,10 +31,24 @@ const addClient = async ({
 };
 
 const getAllClients = async () => {
-  const clients = await Client.find({});
-  if (clients) return { isSuccess: true, data: clients };
-  const message = messages['NO-PSP-OPERATOR-FOUND'];
-  return { isSuccess: false, message };
+  let tempProvider = [];
+  try {
+    let clients = await Client.find({});
+    if (clients) {
+      for (let i=0; i<clients.length; i++) {
+        let providers = await Provider.find({"_id": {$in : clients[i].providers}});
+        providers.forEach((item) => {
+          tempProvider.push(item.provider);
+        })
+        clients[i].providers = tempProvider;
+        tempProvider = [];
+      }
+      return { isSuccess: true, data: clients };
+    }
+  } catch (error) {
+    const message = messages['NO-PSP-OPERATOR-FOUND'];
+    return { isSuccess: false, message }; 
+  }
 };
 
 const getAClient = async (id) => {

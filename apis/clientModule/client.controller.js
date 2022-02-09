@@ -1,7 +1,7 @@
 const clientService = require('./client.service');
 const { validationResult } = require('express-validator');
 const { sendSuccess, sendError } = require('../../helpers/response.format');
-const { query } = require('express-validator');
+const HttpStatusCode  = require('../../models/HttpStatusCode');
 
 // const PER_PAGE = 10;
 // const DEFAULT_PAGE = 1;
