@@ -11,12 +11,6 @@ const buildDevLogger = () => {
       level: 'info',
       format: combine(timestamp(), json()),
     }),
-    new transports.MongoDB({
-      db: configDB.database.endPoint,
-      options: { useUnifiedTopology: true },
-      collection: 'audit',
-      format: combine(timestamp(), json()),
-    }),
   ],
 });
 }

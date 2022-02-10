@@ -11,12 +11,6 @@ const buildProdLogger = () => {
         level: 'info',
         format: combine(timestamp(), errors({ stack: tue }), json()),
       }),
-      new transports.MongoDB({
-        db: configDB.database.endPoint,
-        options: { useUnifiedTopology: true },
-        collection: 'audit',
-        format: combine(timestamp(), json()),
-      }),
     ],
   });
 };

@@ -1,7 +1,7 @@
 {
-  "name": "lawma-backend",
+  "name": "protranslating-backend",
   "version": "1.0.0",
-  "description": "lawma backend project",
+  "description": "protranslating backend project",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GateTechNet/lawma-backend.git"
+    "url": "git+https://github.com/ozuem-liam/protranslating-backend"
   },
   "author": "Gate Technology",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GateTechNet/lawma-backend/issues"
+    "url": "https://github.com/ozuem-liam/protranslating-backend/issues"
   },
-  "homepage": "https://github.com/GateTechNet/lawma-backend#readme",
+  "homepage": "https://github.com/ozuem-liam/protranslating-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
