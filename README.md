@@ -80,6 +80,7 @@ Then run the app by running:
 ```
 npm run dev
 ```
+Stop the server by holding ctrl+C
 
 Set the Docker image by running this code
 
