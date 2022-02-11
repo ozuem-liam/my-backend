@@ -1,4 +1,4 @@
-# Protranslating Test Project
+# My Test Project
 
 **Version 1.0.0**
 
@@ -6,7 +6,7 @@ This is a quick guide on how to run the application
 
 ## Getting Started
 
-Protranslating is a test project
+My is a test project
 
 ## Prerequisites
 
@@ -65,8 +65,8 @@ npm -v
 Clone the repository by running this command:
 
 ```
-git clone https://github.com/ozuem-liam/protranslating-backend protranslating-backend
-cd protranslating-backend
+git clone https://github.com/ozuem-liam/My-backend My-backend
+cd My-backend
 ```
 
 Install all dependences by running:
@@ -85,7 +85,7 @@ Stop the server by holding ctrl+C
 Set the Docker image by running this code
 
 ```
-docker build -t protranslating .
+docker build -t My .
 ```
 
 Run docker compose to build the application

@@ -1,7 +1,7 @@
 {
-  "name": "protranslating-backend",
+  "name": "my-backend",
   "version": "1.0.0",
-  "description": "protranslating backend project",
+  "description": "my backend project",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ozuem-liam/protranslating-backend"
+    "url": "git+https://github.com/ozuem-liam/my-backend"
   },
   "author": "Gate Technology",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ozuem-liam/protranslating-backend/issues"
+    "url": "https://github.com/ozuem-liam/my-backend/issues"
   },
-  "homepage": "https://github.com/ozuem-liam/protranslating-backend#readme",
+  "homepage": "https://github.com/ozuem-liam/my-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
