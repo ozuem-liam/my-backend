@@ -65,8 +65,8 @@ npm -v
 Clone the repository by running this command:
 
 ```
-git clone https://github.com/ozuem-liam/My-backend My-backend
-cd My-backend
+git clone https://github.com/ozuem-liam/my-backend my-backend
+cd my-backend
 ```
 
 Install all dependences by running:
